@@ -24,5 +24,5 @@ Deploy with heroku
 
 * **Alexis Lauradoux** - [AlexisLauradoux](https://github.com/AlexisLauradoux)
 * **Alban Pierson** - [Zalbani](https://github.com/Zalbani)
-* **Romain Jaldorau** - [Romain Jaldorau](https://github.com/RomainJaldo)
-* **Jeremy Fevre** - [Jeremy Fevre](https://github.com/D33pLearning)
+* **Romain Jaldorau** - [RomainJaldo](https://github.com/RomainJaldo)
+* **Jeremy Fevre** - [D33pLearning](https://github.com/D33pLearning)
