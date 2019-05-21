@@ -7,6 +7,8 @@
     "name": ""
   },
   "dependencies": {
+    "bootstrap": "^4.3.1",
+    "express": "^4.17.0",
     "yarm": "^0.4.0"
   }
 }
