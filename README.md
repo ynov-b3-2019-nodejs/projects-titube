@@ -4,8 +4,7 @@ School project aiming at the creation of a classified ad site such as for exampl
 
 ## Production site
 
-Deploy with heroku  
-* 
+Deploy with heroku   
 
 ## Getting Started
 
