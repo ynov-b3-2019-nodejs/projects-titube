@@ -1,0 +1,9 @@
+{
+  "name": "ti-tube",
+  "version": "0.0.0",
+  "description": "TiTube",
+  "main": "app.js",
+  "author": {
+    "name": ""
+  }
+}
