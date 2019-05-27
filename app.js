@@ -1,97 +1,93 @@
-'use strict';
-const express = require('express');
-const nunjucks = require('nunjucks');
+var express = require('express');
+var passport = require('passport');
+var Strategy = require('passport-local').Strategy;
+var db = require('./db');
 
-//Google auth
-const GOOGLE_CLIENT_ID = '611630368524-kp8al13mr6khm1qkjhvuc8phfa31vqsp.apps.googleusercontent.com';
-const GOOGLE_CLIENT_SECRET = 'eRe0mqLESAWhlG4LNtyCQqly';
 
-const app = express();
-const passport = require('passport')
-    , LocalStrategy = require('passport-local').Strategy;
+// Configure the local strategy for use by Passport.
+//
+// The local strategy require a `verify` function which receives the credentials
+// (`username` and `password`) submitted by the user.  The function must verify
+// that the password is correct and then invoke `cb` with a user object, which
+// will be set at `req.user` in route handlers after authentication.
+passport.use(new Strategy(
+    function(username, password, cb) {
+        db.users.findByUsername(username, function(err, user) {
+            if (err) { return cb(err); }
+            if (!user) { return cb(null, false); }
+            if (user.password != password) { return cb(null, false); }
+            return cb(null, user);
+        });
+    }));
 
-const session = require("express-session"),
-    bodyParser = require("body-parser");
 
-let User = [{ username: 'username', password: 'password' }, { username: 'username2', password: 'password' }];
-
-const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const flash = require('connect-flash');
-app.use(flash());
-
-app.use(express.cookieParser());
-app.use(express.session({ secret: "secret" }));
-
-//app.use(passport.initialize());
-//app.use(passport.session()); // persistent login sessions
-
-app.use(flash());
-app.use(app.router);
-app.use(express.static('public'));
-app.use(express.cookieParser());
-app.use(express.bodyParser());
-app.use(express.session({ secret: 'keyboard cat' }));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(app.router);
-app.use(express.static("public"));
-app.use(session({ secret: "cats" }));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(passport.initialize());
-app.use(passport.session());
-
-passport.serializeUser(function(user, done) {
-    done(null, user.id);
+// Configure Passport authenticated session persistence.
+//
+// In order to restore authentication state across HTTP requests, Passport needs
+// to serialize users into and deserialize users out of the session.  The
+// typical implementation of this is as simple as supplying the user ID when
+// serializing, and querying the user record by ID from the database when
+// deserializing.
+passport.serializeUser(function(user, cb) {
+    cb(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user) {
-        done(err, user);
+passport.deserializeUser(function(id, cb) {
+    db.users.findById(id, function (err, user) {
+        if (err) { return cb(err); }
+        cb(null, user);
     });
 });
 
-passport.use(new GoogleStrategy({
-    clientID: GOOGLE_CLIENT_ID,
-    clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://accounts.google.com/o/oauth2/auth"
-},
-    function(accessToken, refreshToken, profile, done) {
-        User.findOrCreate({ googleId: profile.id }, function(err, user) {
-            return done(err, user);
-        });
-    }
-));
 
-passport.use(new LocalStrategy(
-    function(username, password, done) {
-        User.find({ username: username }, function(err, user) {
-            if (err) { return done(err); }
-            if (!user) {
-                return done(null, false, { message: 'Incorrect username.' });
-            }
-            if (!user.password === password) {
-                return done(null, false, { message: 'Incorrect password.' });
-            }
-            return done(null, user);
-        });
-    }
-));
 
-app.get('/auth/google',
-    passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
 
-app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
-app.use('/mk', express.static(__dirname + '/node_modules/leaflet.markercluster/dist'));
-app.use('/ls', express.static(__dirname + '/node_modules/leaflet-search'));
+// Create a new Express application.
+var app = express();
 
-app.use('/customcss', express.static(__dirname + '/src/style'));
-app.use('/script', express.static(__dirname + '/src/scripts'));
-app.use('/', require('./routes/roads'));
+// Configure view engine to render EJS templates.
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
 
-nunjucks.configure('views', {
-    autoescape: true,
-    express: app
-});
+// Use application-level middleware for common functionality, including
+// logging, parsing, and session handling.
+app.use(require('morgan')('combined'));
+app.use(require('cookie-parser')());
+app.use(require('body-parser').urlencoded({ extended: true }));
+app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
 
-console.log('Test serveur lancee sur le serveur port 3000');
-app.listen(process.env.PORT || 3000);
+// Initialize Passport and restore authentication state, if any, from the
+// session.
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Define routes.
+app.get('/',
+    function(req, res) {
+        res.render('home', { user: req.user });
+    });
+
+app.get('/login',
+    function(req, res){
+        res.render('login');
+    });
+
+app.post('/login',
+    passport.authenticate('local', { failureRedirect: '/login' }),
+    function(req, res) {
+        res.redirect('/');
+    });
+
+app.get('/logout',
+    function(req, res){
+        req.logout();
+        res.redirect('/');
+    });
+
+app.get('/profile',
+    require('connect-ensure-login').ensureLoggedIn(),
+    function(req, res){
+        res.render('profile', { user: req.user });
+    });
+
+app.listen(3000);

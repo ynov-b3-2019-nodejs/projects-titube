@@ -10,13 +10,6 @@ router.get('/test', (req, res) => {
     res.render('new.html');
 });
 
-//Auth
-router.post('/login',
-    passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/login',
-        failureFlash: true
-    })
-);
+
 
 module.exports = router;
