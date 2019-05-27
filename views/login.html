@@ -1,14 +1,21 @@
-<form action="/login" method="post">
+{% extends "layout.html" %}
+{% block content %}
+<section class="row  justify-content-center">
+<form action="/login" method="post" class=" col-6 form-group">
     <div>
         <label>Username:</label>
-        <input type="text" name="username" /><br />
+        <input class="form-control" type="text" name="username" /><br />
     </div>
     <div>
         <label>Password:</label>
-        <input type="password" name="password" />
+        <input class="form-control" type="password" name="password" />
     </div>
+    <br/>
     <div>
-        <input type="submit" value="Submit" />
+        <input class="btn btn-primary" type="submit" value="Envoye" />
     </div>
 </form>
-<a href="/auth/google">Sign In with Google</a>
+<a href="/auth/google" class="col-12 form-group text-center">Sign In with Google</a>
+</section>
+
+{% endblock %}

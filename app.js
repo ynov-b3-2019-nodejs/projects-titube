@@ -79,6 +79,11 @@ app.use(require('express-session')({ secret: 'keyboard cat', resave: false, save
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Static CSS
+app.use('/css', express.static( __dirname + '/node_modules/bootstrap/dist/css'));
+
+
+
 // Define routes.
 app.get('/',
     function(req, res) {
