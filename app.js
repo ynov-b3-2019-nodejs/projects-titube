@@ -18,5 +18,5 @@ nunjucks.configure('views', {
     express: app
 });
 
-console.log('Test serveur lancee sur le serveur port 3000');
+console.log('Test serveur lancee sur le serveur port 5000');
 app.listen(process.env.PORT || 5000);
