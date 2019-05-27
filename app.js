@@ -25,8 +25,7 @@ passport.use(new Strategy(
 //   Strategies in Passport require a `verify` function, which accept
 //   credentials (in this case, an accessToken, refreshToken, and Google
 //   profile), and invoke a callback with a user object.
-process.env.GOOGLE_AUTH_SECRET = 'eRe0mqLESAWhlG4LNtyCQqly';
-process.env.GOOGLE_AUTH_ID = '611630368524-kp8al13mr6khm1qkjhvuc8phfa31vqsp.apps.googleusercontent.com';
+
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_AUTH_ID,
     clientSecret: process.env.GOOGLE_AUTH_SECRET,
