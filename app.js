@@ -4,6 +4,7 @@ const Strategy = require('passport-local').Strategy;
 const db = require('./db');
 const nunjucks = require('nunjucks');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+require('dotenv').config();
 
 // Configure the local strategy for use by Passport.
 //
