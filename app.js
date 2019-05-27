@@ -34,7 +34,7 @@ passport.use(new GoogleStrategy({
 },
     function(accessToken, refreshToken, profile, done) {
         console.log(profile);
-        return done(null, { id: 3, username: profile.displayName, password: profile.displayName, displayName: profile.displayName, emails: [{ value: profile.displayName }] });
+        return done(null, { id: profile.id, username: profile.displayName, password: '', displayName: profile.displayName, emails: [{ value: '' }] });
     }
 ));
 
