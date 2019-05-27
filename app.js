@@ -1,11 +1,11 @@
 var express = require('express');
 var passport = require('passport');
+var nunjucks = require('nunjucks');
 var Strategy = require('passport-local').Strategy;
 var db = require('./db');
 
 
 // Configure the local strategy for use by Passport.
-//
 // The local strategy require a `verify` function which receives the credentials
 // (`username` and `password`) submitted by the user.  The function must verify
 // that the password is correct and then invoke `cb` with a user object, which
@@ -22,7 +22,6 @@ passport.use(new Strategy(
 
 
 // Configure Passport authenticated session persistence.
-//
 // In order to restore authentication state across HTTP requests, Passport needs
 // to serialize users into and deserialize users out of the session.  The
 // typical implementation of this is as simple as supplying the user ID when
@@ -39,15 +38,17 @@ passport.deserializeUser(function(id, cb) {
     });
 });
 
-
-
-
 // Create a new Express application.
 var app = express();
 
 // Configure view engine to render EJS templates.
 app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
+
+nunjucks.configure('views', {
+    express: app,
+    autoescape: true
+});
+app.set('view engine', 'html');
 
 // Use application-level middleware for common functionality, including
 // logging, parsing, and session handling.
