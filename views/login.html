@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 <section class="row  justify-content-center">
-<form action="/login" method="post" class=" col-6 form-group">
+<form action="/account/login" method="post" class=" col-6 form-group">
     <div>
         <label>Username:</label>
         <input class="form-control" type="text" name="username" /><br />
@@ -15,7 +15,7 @@
         <input class="btn btn-primary" type="submit" value="Envoye" />
     </div>
 </form>
-<a href="/auth/google" class="col-12 form-group text-center">Sign In with Google</a>
+<a href="/account/auth/google" class="col-12 form-group text-center">Sign In with Google</a>
 </section>
 
 {% endblock %}

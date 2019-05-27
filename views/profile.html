@@ -6,11 +6,11 @@ ID:  {{user.id}} <br/>
 Username:  {{user.username}} <br/>
 Name:  {{user.displayName}} <br/>
     {% if user.emails %}
-        Email:  {{user.emails[0].value}}<br/>
+    Email:  {{user.emails[0].value}}<br />
     {% endif %}
 </p>
     <br/>
-<a href="/logout">Log out</a>
+<a href="/account/logout">Log out</a>
 </section>
 
 {% endblock %}
