@@ -87,8 +87,7 @@ app.use('/css', express.static( __dirname + '/node_modules/bootstrap/dist/css'))
 // Define routes.
 app.get('/',
     function(req, res) {
-        console.log('lala');
-        res.render('home', { user: req.user });
+        res.render('home', { user: req.user, Title: "Coucou je test des trucs" });
     });
 
 app.get('/login',
@@ -111,7 +110,7 @@ app.get('/logout',
 app.get('/profile',
     require('connect-ensure-login').ensureLoggedIn(),
     function(req, res) {
-        res.render('profile', { user: req.user });
+        res.render('profile', { user: req.user, Title: "Compte de "+ req.user.username });
     });
 
 // GET /auth/google
@@ -130,7 +129,6 @@ app.get('/auth/google',
 app.get('/auth/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
     function(req, res) {
-        console.log('la');
         res.render('home', { user: req.user });
     });
 

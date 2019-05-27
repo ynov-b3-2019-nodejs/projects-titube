@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Titube</title>
+    <title>{{Title}}</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="container-fluid">
@@ -12,6 +11,25 @@
         <li><a href="/">Home</a></li>
     </ul>
 </header>
+
+<div class="row justify-content-center">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                Variable Nunjuck hiden
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Title : {{ Title }}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<br/>
+<br/>
+<br/>
+
+
+
 {% block content %}
 
 {% endblock %}

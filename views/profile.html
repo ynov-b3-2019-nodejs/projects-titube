@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
-<p>
+<section class="row  justify-content-center">
+<p class="col-8">
 ID:  {{user.id}} <br/>
 Username:  {{user.username}} <br/>
 Name:  {{user.displayName}} <br/>
@@ -8,6 +9,8 @@ Name:  {{user.displayName}} <br/>
         Email:  {{user.emails[0].value}}<br/>
     {% endif %}
 </p>
+    <br/>
 <a href="/logout">Log out</a>
+</section>
 
 {% endblock %}
