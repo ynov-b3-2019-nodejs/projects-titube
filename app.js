@@ -1,11 +1,12 @@
-var express = require('express');
-var passport = require('passport');
-var nunjucks = require('nunjucks');
-var Strategy = require('passport-local').Strategy;
-var db = require('./db');
-
+const express = require('express');
+const passport = require('passport');
+const Strategy = require('passport-local').Strategy;
+const db = require('./db');
+const nunjucks = require('nunjucks');
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 // Configure the local strategy for use by Passport.
+//
 // The local strategy require a `verify` function which receives the credentials
 // (`username` and `password`) submitted by the user.  The function must verify
 // that the password is correct and then invoke `cb` with a user object, which
@@ -20,8 +21,26 @@ passport.use(new Strategy(
         });
     }));
 
+// Use the GoogleStrategy within Passport.
+//   Strategies in Passport require a `verify` function, which accept
+//   credentials (in this case, an accessToken, refreshToken, and Google
+//   profile), and invoke a callback with a user object.
+process.env.GOOGLE_AUTH_SECRET = 'eRe0mqLESAWhlG4LNtyCQqly';
+process.env.GOOGLE_AUTH_ID = '611630368524-kp8al13mr6khm1qkjhvuc8phfa31vqsp.apps.googleusercontent.com';
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_AUTH_ID,
+    clientSecret: process.env.GOOGLE_AUTH_SECRET,
+    callbackURL: process.env.HEROKU_LINK || 'http://localhost:3000/'
+},
+    function(accessToken, refreshToken, profile, done) {
+        User.findOrCreate({ googleId: profile.id }, function(err, user) {
+            return done(err, user);
+        });
+    }
+));
 
 // Configure Passport authenticated session persistence.
+//
 // In order to restore authentication state across HTTP requests, Passport needs
 // to serialize users into and deserialize users out of the session.  The
 // typical implementation of this is as simple as supplying the user ID when
@@ -32,7 +51,7 @@ passport.serializeUser(function(user, cb) {
 });
 
 passport.deserializeUser(function(id, cb) {
-    db.users.findById(id, function (err, user) {
+    db.users.findById(id, function(err, user) {
         if (err) { return cb(err); }
         cb(null, user);
     });
@@ -43,7 +62,6 @@ var app = express();
 
 // Configure view engine to render EJS templates.
 app.set('views', __dirname + '/views');
-
 nunjucks.configure('views', {
     express: app,
     autoescape: true
@@ -69,7 +87,7 @@ app.get('/',
     });
 
 app.get('/login',
-    function(req, res){
+    function(req, res) {
         res.render('login');
     });
 
@@ -80,15 +98,35 @@ app.post('/login',
     });
 
 app.get('/logout',
-    function(req, res){
+    function(req, res) {
         req.logout();
         res.redirect('/');
     });
 
 app.get('/profile',
     require('connect-ensure-login').ensureLoggedIn(),
-    function(req, res){
+    function(req, res) {
         res.render('profile', { user: req.user });
     });
 
-app.listen(3000);
+// GET /auth/google
+//   Use passport.authenticate() as route middleware to authenticate the
+//   request.  The first step in Google authentication will involve
+//   redirecting the user to google.com.  After authorization, Google
+//   will redirect the user back to this application at /auth/google/callback
+app.get('/auth/google',
+    passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+
+// GET /auth/google/callback
+//   Use passport.authenticate() as route middleware to authenticate the
+//   request.  If authentication fails, the user will be redirected back to the
+//   login page.  Otherwise, the primary route function function will be called,
+//   which, in this example, will redirect the user to the home page.
+app.get('/auth/google/callback',
+    passport.authenticate('google', { failureRedirect: '/login' }),
+    function(req, res) {
+        res.redirect('/');
+    });
+
+console.log('Test serveur lancee sur le serveur port 3000');
+app.listen(process.env.PORT || 3000);
