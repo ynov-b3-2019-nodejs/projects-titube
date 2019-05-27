@@ -28,7 +28,7 @@ module.exports = function (app) {
     passport.use(new GoogleStrategy({
         clientID: process.env.GOOGLE_AUTH_ID,
         clientSecret: process.env.GOOGLE_AUTH_SECRET,
-        callbackURL: process.env.HEROKU_LINK || 'http://localhost:3000/auth/google/callback'
+        callbackURL: process.env.HEROKU_LINK || 'http://localhost:3000/account/auth/google/callback'
     },
         function (accessToken, refreshToken, profile, done) {
             console.log(profile);
@@ -70,7 +70,7 @@ module.exports = function (app) {
     //   request.  The first step in Google authentication will involve
     //   redirecting the user to google.com.  After authorization, Google
     //   will redirect the user back to this application at /auth/google/callback
-    app.get('/auth/google',
+    app.get('/account/auth/google',
         passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
 
     // GET /auth/google/callback
@@ -78,15 +78,15 @@ module.exports = function (app) {
     //   request.  If authentication fails, the user will be redirected back to the
     //   login page.  Otherwise, the primary route function function will be called,
     //   which, in this example, will redirect the user to the home page.
-    app.get('/auth/google/callback',
+    app.get('/account/auth/google/callback',
         passport.authenticate('google', { failureRedirect: '/login' }),
         function (req, res) {
             console.log('la');
             res.render('home', { user: req.user });
         });
 
-    app.post('/login',
-        passport.authenticate('local', { failureRedirect: '/login' }),
+    app.post('/account/login',
+        passport.authenticate('local', { failureRedirect: '/account/login' }),
         function (req, res) {
             res.redirect('/');
         });
