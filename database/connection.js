@@ -1,14 +1,14 @@
 const Sequelize = require('sequelize');
 const DB_URL = process.env['DATABASE_URL'];
+const sequelize = new Sequelize(DB_URL, {
+    dialectOptions: {
+        ssl: true
+    }
+});
 
 module.exports = {
+    sequelize,
     setConnection: function () {
-        const sequelize = new Sequelize(DB_URL, {
-            dialectOptions: {
-                ssl: true
-            }
-        });
-
         sequelize
         .authenticate()
         .then(() => {
@@ -17,5 +17,11 @@ module.exports = {
         .catch(err => {
             console.error('Unable to connect to the database:', err);
         });
-    }   
+    },
+    closeConnection: function () {
+        sequelize.close()
+        .then(() => {
+            console.log('Connection successfuly closed.');
+        });
+    },
 }

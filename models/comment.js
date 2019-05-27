@@ -1,6 +1,9 @@
-const Model = Sequelize.Model;
-class Comment extends Model {}
-User.init({
+const YtVideo = require('./ytvideo');
+const Sequelize = require('sequelize');
+const {sequelize} = require('../database/connection');
+
+class Comment extends Sequelize.Model {}
+Comment.init({
   // attributes
   content: {
     type: Sequelize.STRING,
@@ -9,3 +12,7 @@ User.init({
   sequelize,
   modelName: 'comment'
 });
+
+Comment.hasOne(YtVideo);
+
+module.exports = Comment;
