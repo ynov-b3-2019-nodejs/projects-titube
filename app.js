@@ -1,8 +1,17 @@
 'use strict';
-var express = require('express');
-var nunjucks = require('nunjucks');
 
-var app = express();
+require('dotenv').config();
+
+const express = require('express');
+const nunjucks = require('nunjucks');
+const app = express();
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize(process.env['DATABASE_URL'], {
+    dialectOptions: {
+        ssl: true
+    }
+});
+
 
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/mk', express.static(__dirname + '/node_modules/leaflet.markercluster/dist'));
@@ -18,5 +27,14 @@ nunjucks.configure('views', {
     express: app
 });
 
-console.log('Test serveur lancee sur le serveur port 5000');
+console.log('Test serveur lancé sur le serveur port 5000');
 app.listen(process.env.PORT || 5000);
+
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
