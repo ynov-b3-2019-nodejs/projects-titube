@@ -30,12 +30,11 @@ process.env.GOOGLE_AUTH_ID = '611630368524-kp8al13mr6khm1qkjhvuc8phfa31vqsp.apps
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_AUTH_ID,
     clientSecret: process.env.GOOGLE_AUTH_SECRET,
-    callbackURL: process.env.HEROKU_LINK || 'http://localhost:3000/'
+    callbackURL: process.env.HEROKU_LINK || 'http://localhost:3000/auth/google/callback'
 },
     function(accessToken, refreshToken, profile, done) {
-        User.findOrCreate({ googleId: profile.id }, function(err, user) {
-            return done(err, user);
-        });
+        console.log(profile);
+        return done(null, { id: 3, username: profile.displayName, password: profile.displayName, displayName: profile.displayName, emails: [{ value: profile.displayName }] });
     }
 ));
 
@@ -83,6 +82,7 @@ app.use(passport.session());
 // Define routes.
 app.get('/',
     function(req, res) {
+        console.log('lala');
         res.render('home', { user: req.user });
     });
 
@@ -125,7 +125,8 @@ app.get('/auth/google',
 app.get('/auth/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
     function(req, res) {
-        res.redirect('/');
+        console.log('la');
+        res.render('home', { user: req.user });
     });
 
 console.log('Test serveur lancee sur le serveur port 3000');
