@@ -9,7 +9,8 @@
   "dependencies": {
     "bootstrap": "^4.3.1",
     "express": "^4.17.0",
-    "nunjucks": "^3.2.0"
+    "nunjucks": "^3.2.0",
+    "passport": "^0.4.0"
   },
   "scripts": {
     "start": "node ./app.js"
