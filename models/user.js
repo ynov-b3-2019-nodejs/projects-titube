@@ -1,17 +1,12 @@
-const Sequelize = require('sequelize');
-class User extends Sequelize.Model {}
-User.init({
-  // attributes
-  login: {
-    type: Sequelize.STRING,
-  },
-  password: {
-    type: Sequelize.STRING
-  },
-  mail: {
-    type: Sequelize.STRING
-  }
-}, {
-  sequelize,
-  modelName: 'user'
-});
+'use strict';
+module.exports = (sequelize, DataTypes) => {
+  const User = sequelize.define('User', {
+    username: DataTypes.STRING,
+    email: DataTypes.STRING,
+    password: DataTypes.STRING
+  }, {});
+  User.associate = function(models) {
+    // associations can be defined here
+  };
+  return User;
+};

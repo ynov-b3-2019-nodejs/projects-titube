@@ -1,18 +1,10 @@
-const YtVideo = require('./ytvideo');
-const Sequelize = require('sequelize');
-const {sequelize} = require('../database/connection');
-
-class Category extends Sequelize.Model {}
-Category.init({
-  // attributes
-  libelle: {
-    type: Sequelize.STRING,
-  }
-}, {
-  sequelize,
-  modelName: 'category'
-});
-
-Category.hasMany(YtVideo);
-
-module.exports = Category;
+'use strict';
+module.exports = (sequelize, DataTypes) => {
+  const Category = sequelize.define('Category', {
+    label: DataTypes.STRING
+  }, {});
+  Category.associate = function(models) {
+    Category.hasMany(models.Video);
+  };
+  return Category;
+};

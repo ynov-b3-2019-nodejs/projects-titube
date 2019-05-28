@@ -5,7 +5,7 @@ const express = require('express');
 const nunjucks = require('nunjucks');
 const app = express();
 
-const YtVideo = require('./models/ytvideo');
+const Video = require('./models/video');
 
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/mk', express.static(__dirname + '/node_modules/leaflet.markercluster/dist'));
@@ -26,6 +26,6 @@ app.listen(process.env.PORT || 5000);
 
 db.setConnection();
 
-YtVideo.findAll().then(YtVideo => {
-    console.log("All videos:", JSON.stringify(YtVideo, null, 4));
+Video.findAll().then(Video => {
+    console.log("All videos:", JSON.stringify(Video, null, 4));
   });
