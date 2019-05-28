@@ -34,4 +34,4 @@ console.log('Test serveur lancee sur le serveur port 3000');
 app.listen(process.env.PORT || 3000);
 
 db.setConnection();
-db.testQuery();
+db.selectUserById(1);

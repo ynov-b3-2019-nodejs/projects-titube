@@ -25,5 +25,12 @@ module.exports = {
         client.query("SELECT * FROM trend", (err, res) => {
             console.log(err, res);
         });
-    }
+    },
+
+    selectUserById: function (id) {
+        client.query('SELECT * FROM public."User" WHERE id=' + id, (err, res) => {
+            console.log(err, res.rows);
+            client.end();
+        });
+    },
 }
