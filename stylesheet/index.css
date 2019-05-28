@@ -1,6 +1,10 @@
 body{
     background-color: #09121C;
 }
+.list-group-item{
+    color: #000;
+}
+
 p, h1, h2, h3, h4, h5, a, a:hover, label, li {
     font-family: 'Montserrat', sans-serif;
     list-style: none;
