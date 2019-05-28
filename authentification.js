@@ -81,13 +81,12 @@ module.exports = function (app) {
     app.get('/account/auth/google/callback',
         passport.authenticate('google', { failureRedirect: '/login' }),
         function (req, res) {
-            console.log('la');
             res.render('home', { user: req.user });
         });
 
     app.post('/account/login',
         passport.authenticate('local', { failureRedirect: '/account/login' }),
         function (req, res) {
-            res.redirect('/');
+            res.render('home', { user: req.user });
         });
 };

@@ -6,4 +6,14 @@ router.get('/',
         res.render('home', { user: req.user });
     });
 
+router.get('/category',
+    function (req, res) {
+        res.render('category', { user: req.user, idCategory: req.idCategory, title: req.title });
+    });
+
+router.get('/video',
+    function (req, res) {
+        res.render('video', { user: req.user, idVideo: req.idVideo });
+    });
+
 module.exports = router;
