@@ -17,8 +17,11 @@ nunjucks.configure('views', {
 app.set('view engine', 'html');
 
 
-// Static CSS
+// Static
 app.use('/css', express.static( __dirname + '/node_modules/bootstrap/dist/css'));
+
+app.use('/customcss', express.static( __dirname + '/stylesheet'));
+app.use('/script', express.static( __dirname + '/src/scripts'));
 
 app.use('/', router);
 app.use('/account', accountRouter);
