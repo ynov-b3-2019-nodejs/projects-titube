@@ -21,7 +21,7 @@ app.set('view engine', 'html');
 app.use('/css', express.static( __dirname + '/node_modules/bootstrap/dist/css'));
 
 app.use('/customcss', express.static( __dirname + '/stylesheet'));
-app.use('/script', express.static( __dirname + '/src/scripts'));
+app.use('/src', express.static( __dirname + '/src'));
 
 app.use('/', router);
 app.use('/account', accountRouter);

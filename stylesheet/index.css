@@ -1,3 +1,132 @@
 body{
-    background-color: red;
+    background-color: #09121C;
 }
+p, h1, h2, h3, h4, h5, a, a:hover, label {
+    font-family: 'Montserrat', sans-serif;
+    list-style: none;
+    text-decoration: none;
+    color: white;
+}
+a.orange_link{
+    color: #FFBB0C;
+}
+a:hover{
+    transition-duration: 0.2s;
+    color: #FFBB0C;
+    text-decoration: underline;
+    text-decoration-color: rgb(255, 187, 12);
+}
+
+/* Header */
+
+header>div.header{
+    margin: 40px;
+    position: relative;
+    height: 120px;
+
+}
+header>div.header:before{
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: calc((100% - 70%)/2);
+    width: 70%;
+    height: 2px;
+    border-radius: 8px;
+    background-color: white;
+    z-index: -2;
+}
+header>div.header:after{
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: calc((100% - 70%)/2);
+    width: 35%;
+    height: 2px;
+    border-radius: 8px;
+    background-color: orange;
+    z-index: -1;
+}
+.logo_header{
+    height: 50%;
+    position: absolute;
+    top: calc(50% - (50%/2));
+    left: calc(((100% - 70%)/2) - (40px * 2 ));
+}
+.block-title:hover{
+    text-decoration: none;
+}
+.logo_search{
+    height: 29%;
+    position: absolute;
+    top: calc(50% - (30%/2));
+    right: calc(((100% - 70%)/2) - (40px * 2 ));
+}
+.block-title{
+    height: auto;
+    width: 40%;
+    position: absolute;
+    top: 5px;
+    margin: 0;
+    padding: 0;
+    left: calc(50% - (40% /2) );
+    text-align: center;
+}
+.first-title, .first-title:hover{
+    text-transform: uppercase;
+    color: white;
+    font-size: 73px;
+    font-weight: bold;
+    z-index: 1;
+}
+
+/* Header Menu */
+
+
+.menu ul a, .menu ul, .menu ul a:hover{
+    list-style: none;
+    color: white;
+    padding: 0;
+}
+.menu>ul>li{
+    display: inline-block;
+    position: relative;
+    width: auto;
+    height: auto;
+
+}
+.menu>ul>li:before{
+    content: " | ";
+    margin: 0 10px;
+}
+.menu>ul>li.has_submenu:after{
+    content: " ▼ ";
+    font-size: 10px;
+    margin: 0 5px;
+}
+.menu>ul>li:first-of-type:before{
+    content: none;
+    margin: 0;
+}
+.menu>ul>li>ul{
+    display: none;
+}
+.menu>ul>li:hover>ul{
+    display: block;
+    position: absolute;
+    width: 120%;
+    left: 0;
+    /*border: 6px solid rgba(9, 18, 28, 1);*/
+    background-color: white;
+    text-align: left;
+    padding: 20px;
+    border-radius: 4px;
+    z-index: 90000;
+}
+.menu>ul>li:hover>ul>li{
+    padding: 2px;
+}
+.menu>ul>li:hover>ul>li>a{
+    color: #09121C;
+}
+

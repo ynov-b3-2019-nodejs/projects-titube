@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="57.3" height="66.426" viewBox="0 0 57.3 66.426">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: #ffbb0c;
+      }
+
+      .cls-3 {
+        fill: #ff3100;
+      }
+
+      .cls-4 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-5 {
+        fill: url(#linear-gradient-2);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="0.363" y1="1" x2="0.156" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ffbb0c"/>
+      <stop offset="1" stop-color="#ff3100"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.5" y1="0" x2="0.5" y2="1" xlink:href="#linear-gradient"/>
+  </defs>
+  <g id="titube_logo" transform="translate(0 0)">
+    <path id="Path_49" data-name="Path 49" class="cls-1" d="M29.783,7.3l20.76,12.053L41.76,24.676,21,12.7Z" transform="translate(-21 -7.3)"/>
+    <path id="Path_50" data-name="Path 50" class="cls-2" d="M21,21.5V77.127l8.783,5.4.38-45.209L41.608,43.9l.152-10.418Z" transform="translate(-21 -16.101)"/>
+    <path id="Path_51" data-name="Path 51" class="cls-3" d="M84.135,39v6.426l-3.27,1.825v4.182L75.2,54.741l.152-10.418Z" transform="translate(-54.592 -26.947)"/>
+    <path id="Path_52" data-name="Path 52" class="cls-4" d="M44.1,108.309l20.76-11.9V85.876l-11.407,6.5-.076-24.144L44.48,63.1Z" transform="translate(-35.317 -41.883)"/>
+    <path id="Path_53" data-name="Path 53" class="cls-1" d="M71.109,109l8.935,5.323-11.407,6.5L68.6,110.293Z" transform="translate(-50.501 -70.331)"/>
+    <path id="Path_54" data-name="Path 54" class="cls-2" d="M90.1,71.346V60.7l13.156,7.49L94.206,73.7Z" transform="translate(-63.826 -40.396)"/>
+    <path id="Path_55" data-name="Path 55" class="cls-2" d="M90.1,101.7v6.16l3.27,1.939v4.3l5.7,3.118V106.8Z" transform="translate(-63.826 -65.807)"/>
+    <path id="Path_56" data-name="Path 56" class="cls-1" d="M99.073,47.2,90.1,52.333l13.156,7.49L90.1,67.922l8.973,5.1L121.126,60.09Z" transform="translate(-63.826 -32.029)"/>
+    <path id="Path_57" data-name="Path 57" class="cls-5" d="M135.753,91.708,113.7,104.446V94.028L135.753,81.1Z" transform="translate(-78.453 -53.039)"/>
+  </g>
+</svg>
