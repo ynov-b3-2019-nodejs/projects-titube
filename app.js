@@ -23,4 +23,4 @@ console.log('Test serveur lancé sur le serveur port 5000');
 app.listen(process.env.PORT || 5000);
 
 db.setConnection();
-db.testQuery();
+db.selectUserById(1);
