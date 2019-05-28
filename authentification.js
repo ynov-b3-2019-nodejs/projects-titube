@@ -12,14 +12,19 @@ module.exports = function (app) {
     // that the password is correct and then invoke `cb` with a user object, which
     // will be set at `req.user` in route handlers after authentication.
     passport.use(new Strategy(
-        function (username, password, cb) {
+        function (username, password, done) {
             db.users.findByUsername(username, function (err, user) {
-                if (err) { return cb(err); }
-                if (!user) { return cb(null, false); }
-                if (user.password != password) { return cb(null, false); }
-                return cb(null, user);
+                if (err) { return done(err); }
+                if (!user) {
+                    return done(null, false, { message: 'Incorrect username.' });
+                }
+                if (!user.passport === password) {
+                    return done(null, false, { message: 'Incorrect password.' });
+                }
+                return done(null, user);
             });
-        }));
+        }
+    ));
 
     // Use the GoogleStrategy within Passport.
     //   Strategies in Passport require a `verify` function, which accept
@@ -57,7 +62,7 @@ module.exports = function (app) {
     // serializing, and querying the user record by ID from the database when
     // deserializing.
     passport.serializeUser(function (user, cb) {
-        cb(null, user.id);
+        cb(null, user.id); $
     });
 
     passport.deserializeUser(function (id, cb) {
