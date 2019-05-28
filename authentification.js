@@ -38,7 +38,7 @@ module.exports = function (app) {
     },
         function (accessToken, refreshToken, profile, done) {
             console.log(profile);
-            return done(null, { id: profile.id, username: profile.displayName, password: '', displayName: profile.displayName, emails: [{ value: '' }] });
+            return done(null, { id: profile._json.email, username: profile.displayName, password: '', displayName: profile.displayName, emails: [{ value: profile._json.email }] });
         }
     ));
 
@@ -62,7 +62,7 @@ module.exports = function (app) {
     // serializing, and querying the user record by ID from the database when
     // deserializing.
     passport.serializeUser(function (user, cb) {
-        cb(null, user.id); $
+        cb(null, user.id);
     });
 
     passport.deserializeUser(function (id, cb) {
@@ -77,7 +77,12 @@ module.exports = function (app) {
     //   redirecting the user to google.com.  After authorization, Google
     //   will redirect the user back to this application at /auth/google/callback
     app.get('/account/auth/google',
-        passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+        passport.authenticate('google', {
+            scope: [
+                'https://www.googleapis.com/auth/userinfo.profile',
+                'https://www.googleapis.com/auth/userinfo.email'
+            ]
+        }));
 
     // GET /auth/google/callback
     //   Use passport.authenticate() as route middleware to authenticate the
@@ -87,12 +92,12 @@ module.exports = function (app) {
     app.get('/account/auth/google/callback',
         passport.authenticate('google', { failureRedirect: '/account/login' }),
         function (req, res) {
-            res.render('home', { user: req.user });
+            res.redirect('/');
         });
 
     app.post('/account/login',
         passport.authenticate('local', { failureRedirect: '/account/login' }),
         function (req, res) {
-            res.render('home', { user: req.user });
+            res.redirect('/');
         });
 };

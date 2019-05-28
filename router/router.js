@@ -16,4 +16,9 @@ router.get('/video',
         res.render('video', { user: req.user, idVideo: req.idVideo });
     });
 
+router.get('/chat',
+    function (req, res) {
+        res.render('_chat');
+    });
+
 module.exports = router;

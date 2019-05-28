@@ -1,7 +1,8 @@
 const express = require('express');
 const authentification = require('./authentification');
-const accountRouter = require('./accountRouter');
-const router = require('./router');
+const accountRouter = require('./router/accountRouter');
+const router = require('./router/router');
+const socket = require('./socket/socket');
 const nunjucks = require('nunjucks');
 require('dotenv').config();
 
@@ -23,6 +24,8 @@ authentification(app);
 
 app.use('/', router);
 app.use('/account', accountRouter);
+
+socket(app);
 
 console.log('Test serveur lancee sur le serveur port 3000');
 app.listen(process.env.PORT || 3000);
