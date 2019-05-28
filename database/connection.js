@@ -26,11 +26,39 @@ module.exports = {
             console.log(err, res);
         });
     },
-
     selectUserById: function (id) {
         client.query('SELECT * FROM public."User" WHERE id=' + id, (err, res) => {
-            console.log(err, res.rows);
-            client.end();
+            console.log("UserById:", err, res.rows);
+        });
+    },
+    selectUserByEmail: function (email) {
+        client.query('SELECT * FROM public."User" WHERE email=' + email, (err, res) => {
+            console.log("UserByEmail:", err, res);
+        });
+    },
+    insertUser: function (username, email, password) {
+        client.query('INSERT INTO public."User" (username, email, password, "createdAt", "updatedAt") VALUES (\''+ username + '\',\'' + email +'\',\'' + password +'\', NOW(), NOW())', (err, res) => {
+            console.log(err, res);
+        });
+    },
+    insertCategory: function (name) {
+        client.query('INSERT INTO public."Category" (label, "createdAt", "updatedAt") VALUES (\''+ label + '\', NOW(), NOW())', (err, res) => {
+            console.log(err, res);
+        });
+    },
+    insertComment: function (content, videoId) {
+        client.query('INSERT INTO public."Comment" (content, "videoId", "createdAt", "updatedAt") VALUES (\''+ content + '\',\'' + videoId +'\',NOW(), NOW())', (err, res) => {
+            console.log(err, res);
+        });
+    },
+    insertTrend: function (label) {
+        client.query('INSERT INTO public."Trend" (label, createdAt", "updatedAt") VALUES (\''+ label + '\',NOW(), NOW())', (err, res) => {
+            console.log(err, res);
+        });
+    },
+    insertVideo: function (title, description, likes, unlikes, views, thumbnail, categoryId, trendId) {
+        client.query('INSERT INTO public."Video" (title, description, likes, unlikes, views, thumbnail, "createdAt", "updatedAt", "categoryId", "trendId") VALUES (\''+ title + '\',\'' + description +'\',\'' + likes +'\',\'' + unlikes +'\',\'' + views +'\',\'' + thumbnail +'\',NOW(), NOW(),\'' + categoryId +'\', \'' + trendId +'\')', (err, res) => {
+            console.log(err, res);
         });
     },
 }
