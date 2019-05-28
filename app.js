@@ -1,7 +1,6 @@
 'use strict';
-
 require('dotenv').config();
-
+const db = require('./database/connection');
 const express = require('express');
 const authentification = require('./authentification');
 const accountRouter = require('./router/accountRouter');
@@ -33,3 +32,6 @@ socket(app);
 
 console.log('Test serveur lancee sur le serveur port 3000');
 app.listen(process.env.PORT || 3000);
+
+db.setConnection();
+db.testQuery();
