@@ -20,8 +20,14 @@ nunjucks.configure('views', {
 });
 app.set('view engine', 'html');
 
-// Static CSS
-app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+
+// Static
+app.use('/css', express.static( __dirname + '/node_modules/bootstrap/dist/css'));
+
+app.use('/customcss', express.static( __dirname + '/stylesheet'));
+app.use('/src', express.static( __dirname + '/src'));
+
+
 
 authentification(app);
 

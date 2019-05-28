@@ -3,15 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>{{Title}}</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,300,400,700,900&display=swap" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/customcss/index.css" rel="stylesheet">
 </head>
-<body class="container-fluid">
-<header>
-    <ul>
-        <li><a href="/">Home</a></li>
-    </ul>
+<body>
+<header class="container-fluid">
+    <div class="row justify-content-center">
+    <div class="col-12 header">
+        <a href="/">
+            <img class="logo_header" src="/src/svg/titube_logo.svg" alt="logo titube"/>
+        </a>
+        <a href="/" class="block-title">
+            <p class="first-title">Titube</p>
+        </a>
+        <a>
+            <img class="logo_search" src="/src/svg/search.svg" alt="logo search"/>
+        </a>
+    </div>
+    <div class="menu">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li class="has_submenu">
+                Category
+                <ul>
+                    <li><a href="">Category</a></li>
+                    <li><a href="">Category</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="/account/login">Connexion</a>
+            </li>
+        </ul>
+    </div>
+    </div>
 </header>
-
+<div class="container">
 <div class="row justify-content-center">
     <div class="col-4">
         <div class="card">
@@ -24,12 +51,16 @@
         </div>
     </div>
 </div>
+</div>
 <br/>
 <br/>
 <br/>
+<main class="container">
+
 {% block content %}
 
 {% endblock %}
+</main>
 <p class="text-center">
     Mon Beau footer
 </p>
