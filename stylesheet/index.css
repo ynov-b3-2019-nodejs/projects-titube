@@ -177,13 +177,29 @@ iframe{
     width: 100%;
     height: 40%;
 }
+.nb_views{
+    color: #3369FF;
+    text-align: right;
+}
+.nb_views>img{
+    width: 20px;
+    margin: 0 5px 0 10px;
+}
+.description{
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+}
 .infos_video{
     margin-top: 40px;
 }
-.infos_video>h2{
+.infos_video>h2, h2.title_border{
     font-size: 20px;
     padding-bottom: 20px;
     border-bottom: 1px solid white;
+}
+h2.title_border{
+    margin-top: 40px;
+    width: 40%;
 }
 
 img.pp{
@@ -192,4 +208,45 @@ img.pp{
     border-radius: 50%;
     border: 1px solid #3369FF;
     margin: 15px;
+}
+.progresse_bar{
+    margin: 40px 0;
+    background-color: white;
+    border-radius: 30px;
+}
+.color_progresse_bar{
+    background: rgba(255,186,12,1);
+    background: -moz-linear-gradient(left, rgba(255,186,12,1) 0%, rgba(255,51,0,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255,186,12,1)), color-stop(100%, rgba(255,51,0,1)));
+    background: -webkit-linear-gradient(left, rgba(255,186,12,1) 0%, rgba(255,51,0,1) 100%);
+    background: -o-linear-gradient(left, rgba(255,186,12,1) 0%, rgba(255,51,0,1) 100%);
+    background: -ms-linear-gradient(left, rgba(255,186,12,1) 0%, rgba(255,51,0,1) 100%);
+    background: linear-gradient(to right, rgba(255,186,12,1) 0%, rgba(255,51,0,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffba0c', endColorstr='#ff3300', GradientType=1 );
+    height: 10px;
+    border-radius: 30px;
+}
+.block_commentaire{
+    margin: 20px 0;
+}
+.block_commentaire>img{
+    display: inline-block;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #3369FF;
+    width: 50px;
+    margin: 0 15px;
+    vertical-align: top;
+}
+.block_commentaire>.content_block>p:first-of-type{
+    font-size: 15px;
+    width: 100%;
+    border-bottom: 1px solid white;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+.block_commentaire>.content_block{
+    font-size: 12px;
+    display: inline-block;
+    width: calc(100% - 90px);
 }
