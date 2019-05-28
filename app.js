@@ -16,6 +16,10 @@ nunjucks.configure('views', {
 });
 app.set('view engine', 'html');
 
+
+// Static CSS
+app.use('/css', express.static( __dirname + '/node_modules/bootstrap/dist/css'));
+
 app.use('/', router);
 app.use('/account', accountRouter);
 
