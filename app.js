@@ -16,14 +16,13 @@ nunjucks.configure('views', {
 });
 app.set('view engine', 'html');
 
-
 // Static CSS
-app.use('/css', express.static( __dirname + '/node_modules/bootstrap/dist/css'));
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+
+authentification(app);
 
 app.use('/', router);
 app.use('/account', accountRouter);
-
-authentification(app);
 
 console.log('Test serveur lancee sur le serveur port 3000');
 app.listen(process.env.PORT || 3000);
