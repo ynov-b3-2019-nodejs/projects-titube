@@ -23,6 +23,8 @@ app.use('/css', express.static( __dirname + '/node_modules/bootstrap/dist/css'))
 app.use('/customcss', express.static( __dirname + '/stylesheet'));
 app.use('/src', express.static( __dirname + '/src'));
 
+
+
 authentification(app);
 
 app.use('/', router);
