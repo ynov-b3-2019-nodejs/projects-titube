@@ -13,7 +13,7 @@ router.get('/logout',
     });
 
 router.get('/profile',
-    require('connect-ensure-login').ensureLoggedIn(),
+    require('connect-ensure-login').ensureLoggedIn('/account/login'),
     function (req, res) {
         res.render('profile', { user: req.user });
     });
