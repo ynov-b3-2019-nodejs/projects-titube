@@ -3,6 +3,7 @@ module.exports = function (app) {
     const Strategy = require('passport-local').Strategy;
     const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
     const db = require('./db');
+    console.log(db);
 
     // Configure the local strategy for use by Passport.
     //
@@ -79,7 +80,7 @@ module.exports = function (app) {
     //   login page.  Otherwise, the primary route function function will be called,
     //   which, in this example, will redirect the user to the home page.
     app.get('/account/auth/google/callback',
-        passport.authenticate('google', { failureRedirect: '/login' }),
+        passport.authenticate('google', { failureRedirect: '/account/login' }),
         function (req, res) {
             console.log('la');
             res.render('home', { user: req.user });
