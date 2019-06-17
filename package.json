@@ -20,6 +20,8 @@
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.4",
     "express-session": "^1.16.1",
+    "google-auth-library": "^4.0.0",
+    "googleapis": "^40.0.0",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-google-oauth": "^2.0.0",
