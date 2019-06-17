@@ -171,9 +171,16 @@ module.exports = {
             return { err: e, user: null };
         }
     },
-    async InsertVideos(categorie, creator_name, shortcode, title, views, thumbnail) {
+    async InsertVideos(categorie, description, creator_name, shortcode, title, views, thumbnail) {
         try {
-            const res = await client.query('INSERT INTO public."Video" (cat, creator_name, shortcode, title, views, thumbnail ) VALUES ( \'' + categorie + '\', \'' + creator_name + '\', \''+ shortcode + '\', \''+ title +'\', \''+ views +'\',\''+ thumbnail +'\' )');
+            function replace_caractere(str) {
+                //const result = str.replace('\\', ' ').replace('\'', ' ').replace('\`', ' ').replace('\"', ' ').replace('\'', ' ').replace('\\\'', ' ');
+                return str;
+            }
+            const new_titre = replace_caractere(title);
+            const new_description = replace_caractere(description);
+
+            const res = await client.query('INSERT INTO public."Video" (cat,description, creator_name, shortcode, title, views, thumbnail ) VALUES ( \'' + categorie + '\', $$' + new_description + '$$, \'' + creator_name + '\', \''+ shortcode + '\', $$'+ new_titre+'$$, \''+ views +'\',\''+ thumbnail +'\' )');
             console.log(res);
 
             if (res.rowCount === 0) {

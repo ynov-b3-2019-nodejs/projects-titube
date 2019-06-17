@@ -5,7 +5,10 @@ var OAuth2 = google.auth.OAuth2;
 const db = require('./database/connection');
 
 exports.authenticate = function ()
+
 {
+
+
   // If modifying these scopes, delete your previously saved credentials
   // at ~/.credentials/youtube-nodejs-quickstart.json
   var SCOPES = ['https://www.googleapis.com/auth/youtube.readonly'];
@@ -164,7 +167,8 @@ exports.authenticate = function ()
       part: 'statistics,snippet',
       regionCode: 'FR',
       chart: 'mostPopular',
-        videoCategoryId: '1'
+        maxResults: 10,
+        videoCategoryId: '18'
     }, function(err, response) {
       if (err) {
         console.log('The API returned an error: ' + err);
@@ -175,18 +179,20 @@ exports.authenticate = function ()
         console.log('No channel found.');
       } else {
         console.log('Les vidéos sont :')
-          console.log(channels);
+          //console.log(channels);
         channels.forEach(element => {
-          console.log("id :" + element.id);
-          console.log("like :" + element.statistics.likeCount);
-          console.log("viewCount :" + element.statistics.viewCount);
-          console.log("title :" + element.snippet.title);
-          const titre = (element.snippet.title).normalize();
-          console.log("thunb url :" + element.snippet.thumbnails.high.url);
-          console.log("category id :" + element.snippet.categoryId);
-          console.log("channel title :" + element.snippet.channelTitle);
+          //console.log("id :" + element.id);
+          //console.log("like :" + element.statistics.likeCount);
+          //console.log("viewCount :" + element.statistics.viewCount);
+          //console.log("title :" + element.snippet.title);
+            console.log(element.snippet);
+          console.log("Description :" + element.snippet.description);
+          //console.log("thunb url :" + element.snippet.thumbnails.high.url);
+          //console.log("category id :" + element.snippet.categoryId);
+          //console.log("channel title :" + element.snippet.channelTitle);
 
-          //db.InsertVideos( "Film & Animation", element.snippet.channelTitle, element.id,  titre,  element.statistics.viewCount, element.snippet.thumbnails.high.url );
+
+          db.InsertVideos( "Short Movies", element.snippet.description, element.snippet.channelTitle, element.id,   element.snippet.title,  element.statistics.viewCount, element.snippet.thumbnails.high.url );
 
 
 
