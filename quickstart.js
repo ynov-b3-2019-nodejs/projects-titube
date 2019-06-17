@@ -168,7 +168,7 @@ exports.authenticate = function ()
       regionCode: 'FR',
       chart: 'mostPopular',
         maxResults: 10,
-        videoCategoryId: '18'
+        videoCategoryId: '44'
     }, function(err, response) {
       if (err) {
         console.log('The API returned an error: ' + err);
@@ -192,7 +192,7 @@ exports.authenticate = function ()
           //console.log("channel title :" + element.snippet.channelTitle);
 
 
-          db.InsertVideos( "Short Movies", element.snippet.description, element.snippet.channelTitle, element.id,   element.snippet.title,  element.statistics.viewCount, element.snippet.thumbnails.high.url );
+          //db.InsertVideos( "Trailers", element.snippet.description, element.snippet.channelTitle, element.id,   element.snippet.title,  element.statistics.viewCount, element.snippet.thumbnails.high.url );
 
 
 

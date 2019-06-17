@@ -4,7 +4,7 @@
     <div class="col-12 infos">
         <h1> {{ video_titre }}</h1>
         <ul>
-            <li>{{ video_category }}</li>
+            <li><a href="/liste-videos/{{ video_category }}">{{ video_category }}</a></li>
         </ul>
     </div>
 </section>
@@ -107,21 +107,6 @@
     </a>
     {% endfor %}
     <a href="/liste-videos/Trends" class="col-2 custom_button">Voir + de videos</a>
-</section>
-<section class="row justify-content-end">
-    <div class="col-12 infos">
-        <h1>Vidéos les plus nulles du web</h1>
-    </div>
-    {% for detail_null in videos_null %}
-    <a href="/" class="col-3 miniature_video">
-        <img src="{{ detail_null.video_thumbnail }}" />
-        <p>{{ detail_null.video_titre }}</p>
-        <p>{{ detail_null.video_createur }}</p>
-        <hr>
-        <p class="nb_views">{{ detail_null.video_views }}<img src="/src/svg/view.svg" /></p>
-    </a>
-    {% endfor %}
-    <a href="/liste-videos" class="col-2 custom_button">Voir + de videos</a>
 </section>
 
 <section class="row  justify-content-center">

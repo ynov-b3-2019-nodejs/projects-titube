@@ -121,7 +121,7 @@ header div.header:after{
 .menu>ul>li:hover>ul{
     display: block;
     position: absolute;
-    width: 120%;
+    width: 200%;
     left: 0;
     /*border: 6px solid rgba(9, 18, 28, 1);*/
     background-color: white;
@@ -200,7 +200,7 @@ h2.title_border{
 }
 
 img.pp{
-    display: inline-block;
+    display: none;
     height: 75px;
     border-radius: 50%;
     border: 2px solid #3369FF;
@@ -212,6 +212,7 @@ img.pp{
     border-radius: 30px;
 }
 .color_progresse_bar{
+    transition-duration: 1s;
     background: rgba(255,186,12,1);
     background: -moz-linear-gradient(left, rgba(255,186,12,1) 0%, rgba(255,51,0,1) 100%);
     background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255,186,12,1)), color-stop(100%, rgba(255,51,0,1)));
