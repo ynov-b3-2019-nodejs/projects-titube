@@ -45,25 +45,49 @@
                         {% endif %}
                 socket.on('like', function (number) {
                     $('#like').text(number.number);
-                    const like  = $('#like').text();
-                    const unlike = $('#unlike').text();
-                    if (unlike  === 0 && like  === 0) {
+                    const old_like  = $('#like').text();
+                    const like = parseFloat(old_like);
+                    const old_unlike = $('#unlike').text();
+                    const unlike = parseFloat(old_unlike);
+                    if (like === 0) {
+                        $('#progresse_bar').width('0%');
+                    }
+                    if (unlike === 0) {
                         $('#progresse_bar').width('100%');
                     }
-                    else {
-                        $('#progresse_bar').width(((like / (like + unlike)) * 100).toString() + '%');
+                    if (unlike  === 0 && like  === 0 ) {
+                        $('#progresse_bar').width('50%');
+                    }else{
+                        $('#progresse_bar').width(((like / ((like + unlike))) * 100).toString() + '%');
                     }
                     });
+
                 socket.on('unlike', function (number) {
                     $('#unlike').text(number.number);
-                    const like  = $('#like').text();
-                    const unlike = $('#unlike').text();
-                    if (unlike  === 0 && like  === 0) {
-                        $('#progresse_bar').width('100%');
+                    const old_like  = $('#like').text();
+                    const like = parseFloat(old_like);
+
+                    const old_unlike = $('#unlike').text().parseFloat();
+                    const unlike = parseFloat(old_unlike);
+
+                    if (unlike  === 0 && like  === 0 ) {
+                        $('#progresse_bar').width('50%');
+                    }else{
+                        if (like === 0) {
+                            $('#progresse_bar').width('0%');
+                            console.log("Je suis passer par ici");
+                        }else{
+                            if (unlike === 0) {
+                                $('#progresse_bar').width('100%');
+                            }
+                            else{
+                                $('#progresse_bar').width(((like / ((like + unlike))) * 100).toString() + '%');
+                            }
+                        }
+
                     }
-                    else {
-                        $('#progresse_bar').width(((like / (like + unlike)) * 100).toString() + '%');
-                    }
+
+
                 });
 
                 socket.emit('likeAndUnlike_request', {{ video_id }});
