@@ -1,11 +1,11 @@
 const DB_URL = process.env['DATABASE_URL'];
 const pg = require('pg');
 const client = new pg.Client({
-    user: "avwkieahxulqja",
-    password: "099c825a39815259d90e195d6b8881bf0a0228f3515106e6729d43e1a40bb0cb",
-    database: "d460oslt8pgjm6",
+    user: "jcmwoiyqrjyoie",
+    password: "d12bd81a3a8f5669316cf497b9d1c7da6bb73926cedfd8ffef1202bf0a16f0eb",
+    database: "ddnbfkuvasc119",
     port: 5432,
-    host: "ec2-54-247-96-169.eu-west-1.compute.amazonaws.com",
+    host: "ec2-79-125-126-205.eu-west-1.compute.amazonaws.com",
     ssl: true
 }); 
 
@@ -31,9 +31,14 @@ module.exports = {
             console.log("UserById:", err, res.rows);
         });
     },
-    selectUserByEmail: function (email) {
-        client.query('SELECT * FROM public."User" WHERE email=' + email, (err, res) => {
+    selectUserByEmail: function (mail) {
+        client.query("SELECT * FROM public.\"User\" WHERE email LIKE " + mail, (err, res) => {
             console.log("UserByEmail:", err, res);
+        });
+    },
+    selectTrendByLabel: function (trend) {
+        client.query('SELECT * FROM public."Trend" WHERE label LIKE ' + trend, (err, res) => {
+            console.log("TrendByLabel:", err, res);
         });
     },
     insertUser: function (username, email, password) {
@@ -61,4 +66,5 @@ module.exports = {
             console.log(err, res);
         });
     },
+
 }
