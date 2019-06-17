@@ -33,7 +33,7 @@ authentification(app, db);
 app.use('/', router);
 app.use('/account', accountRouter);
 
-socket(app);
+socket(app, db);
 
 console.log('Test serveur lancee sur le serveur port 3000');
 app.listen(process.env.PORT || 3000);

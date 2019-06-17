@@ -3,12 +3,12 @@
 <script>
     $(function () {
         var socket = io('http://localhost:4000');
+
+        socket.on('like', function (number) {
+            $('#like').text(number);
+        });
+        socket.on('unlike', function (number) {
+            $('#unlike').text(number);
+        });
     });
-    socket.on('like', function (number) {
-        $('#like').text(number);
-    });
-    socket.on('unlike', function (number) {
-        $('#unlike').text(number);
-    });
-  });
 </script>
