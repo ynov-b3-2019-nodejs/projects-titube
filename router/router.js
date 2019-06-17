@@ -29,7 +29,7 @@ router.get('/',
 
 
 
-        res.render('home', { user: req.user, Title: "Coucou", video_id: video.id, video_titre:  video.title, video_category:  video.cat ,video_shortcode: video.shortcode, video_createur: video.creator_name, createur_pp: video.creator_pp, video_thumbnail: video.thumbnail, video_desciption: video.description,
+        res.render('home', { user: req.user, Title: "Home page", video_id: video.id, video_titre:  video.title, video_category:  video.cat ,video_shortcode: video.shortcode, video_createur: video.creator_name, createur_pp: video.creator_pp, video_thumbnail: video.thumbnail, video_desciption: video.description,
             trends: my_customarray_trends, cat:my_customarray_categories, videos_null: [{video_thumbnail: "/src/img/tomb-raider.jpg", video_titre: "Titre de la video-1", video_createur: "Yassine", video_views: "12"},{video_thumbnail: "/src/img/tomb-raider.jpg", video_titre: "Titre de la video-1", video_createur: "Yassine", video_views: "12"}, {video_thumbnail: "/src/img/tomb-raider.jpg", video_titre: "Titre de la video-2", video_createur: "Yassine", video_views: "12"}, {video_thumbnail: "/src/img/tomb-raider.jpg", video_titre: "Titre de la video-1", video_createur: "Yassine", video_views: "12"}]});
     });
 
@@ -59,7 +59,7 @@ router.get('/video/:id',
 
 
 
-            res.render('home', { user: req.user, Title: "Coucou", video_id: video.id, video_titre:  video.title, video_category:  video.cat ,video_shortcode: video.shortcode, video_createur: video.creator_name, createur_pp: video.creator_pp, video_thumbnail: video.thumbnail, video_desciption: video.description,
+            res.render('home', { user: req.user, Title: "Page", video_id: video.id, video_titre:  video.title, video_category:  video.cat ,video_shortcode: video.shortcode, video_createur: video.creator_name, createur_pp: video.creator_pp, video_thumbnail: video.thumbnail, video_desciption: video.description,
                 cat:my_customarray_categories, trends: my_customarray_trends, videos_null: [{video_thumbnail: "/src/img/tomb-raider.jpg", video_titre: "Titre de la video-1", video_createur: "Yassine", video_views: "12"},{video_thumbnail: "/src/img/tomb-raider.jpg", video_titre: "Titre de la video-1", video_createur: "Yassine", video_views: "12"}, {video_thumbnail: "/src/img/tomb-raider.jpg", video_titre: "Titre de la video-2", video_createur: "Yassine", video_views: "12"}, {video_thumbnail: "/src/img/tomb-raider.jpg", video_titre: "Titre de la video-1", video_createur: "Yassine", video_views: "12"}]});
         });
 
