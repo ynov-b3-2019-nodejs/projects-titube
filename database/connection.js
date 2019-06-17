@@ -30,9 +30,14 @@ module.exports = {
             console.log("UserById:", err, res.rows);
         });
     },
-    selectUserByEmail: function (email) {
-        client.query('SELECT * FROM public."User" WHERE email=' + email, (err, res) => {
+    selectUserByEmail: function (mail) {
+        client.query("SELECT * FROM public.\"User\" WHERE email LIKE " + mail, (err, res) => {
             console.log("UserByEmail:", err, res);
+        });
+    },
+    selectTrendByLabel: function (trend) {
+        client.query('SELECT * FROM public."Trend" WHERE label LIKE ' + trend, (err, res) => {
+            console.log("TrendByLabel:", err, res);
         });
     },
     insertUser: function (username, email, password) {
@@ -60,4 +65,5 @@ module.exports = {
             console.log(err, res);
         });
     },
+
 }
