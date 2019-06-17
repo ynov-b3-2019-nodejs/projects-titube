@@ -16,11 +16,7 @@ router.get('/signin',
     function (req, res) {
         res.render('sign-in', { user: req.user });
     });
-router.post('/signin',
-    function (req, res) {
-        //add user
-        res.redirect('/');
-    });
+
 
 router.get('/profile',
     require('connect-ensure-login').ensureLoggedIn(),
