@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<section class="row">
+    <div class="col-12 infos">
+        <h1>{{Title}}</h1>
+    </div>
+    {% for detail in videos %}
+    <a href="/video/{{detail.video_id}}" class="col-3 miniature_video">
+        <img src="{{ detail.video_thumbnail }}"/>
+        <p>{{ detail.video_titre }}</p>
+        <p>{{ detail.video_createur }}</p>
+        <hr>
+        <p class="nb_views">{{ detail.video_views }}<img src="/src/svg/view.svg"/></p>
+    </a>
+    {% endfor %}
+</section>
+{% endblock %}

@@ -1,13 +1,97 @@
 {% extends "layout.html" %}
 {% block content %}
+<section class="row">
+    <div class="col-12 infos">
+        <h1> {{ video_titre }}</h1>
+        <ul>
+            <li>{{ video_category }}</li>
+        </ul>
+    </div>
+</section>
+<section class="row">
+    <div class="video col-8">
+        <iframe src="https://www.youtube.com/embed/{{ video_shortcode }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <p class="nb_views">12K<img src="/src/svg/view.svg"/></p>
+        <div>
+            <h2 class="title_border">Description</h2>
+            <p class="description">{{ video_desciption }}</p>
+        </div>
+    </div>
+    <div class="infos_video col-4">
+        <h2>Createur</h2>
+        <img src="{{ createur_pp }}" class="pp">
+        <p class="d-inline-block color_blue">{{ video_createur }}</p>
+        <h2>Note moyenne</h2>
+        <div class="progresse_bar">
+            <div class="color_progresse_bar" style="width:55%"></div>
+        </div>
+        <button id="like">123 LIKES</button>
+        <button id="dislike">123 dislikes</button>
+        <h2>Commentaire</h2>
+        <div class="block_commentaire">
+            <img src="/src/img/pp.jpg"/>
+            <div class="content_block">
+                <p>Patrice</p>
+                <p>     Lorem ipsum dolor sit amet,
+                    consectetur adipiscing elit, sed do
+                    eiusmod tempor incididunt ut labore </p>
+            </div>
+        </div>
+        <div class="block_commentaire">
+            <img src="/src/img/pp.jpg"/>
+            <div class="content_block">
+                <p>Patrice</p>
+                <p>     Lorem ipsum dolor sit amet,
+                    consectetur adipiscing elit, sed do
+                    eiusmod tempor incididunt ut labore </p>
+            </div>
+        </div>
+        <div class="block_commentaire">
+            <img src="/src/img/pp.jpg"/>
+            <div class="content_block">
+                <p>Patrice</p>
+                <p>     Lorem ipsum dolor sit amet,
+                    consectetur adipiscing elit, sed do
+                    eiusmod tempor incididunt ut labore </p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="row justify-content-end">
+    <div class="col-12 infos">
+        <h1>Tendance</h1>
+    </div>
+    {% for detail_trends in trends %}
+    <a href="/video/{{detail_trends.video_id}}" class="col-3 miniature_video">
+        <img src="{{ detail_trends.video_thumbnail }}"/>
+        <p>{{ detail_trends.video_titre }}</p>
+        <p>{{ detail_trends.video_createur }}</p>
+        <hr>
+        <p class="nb_views">{{ detail_trends.video_views }}<img src="/src/svg/view.svg"/></p>
+    </a>
+    {% endfor %}
+    <a href="/liste-videos/Trends" class="col-2 custom_button">Voir + de videos</a>
+</section>
+<section class="row justify-content-end">
+    <div class="col-12 infos">
+        <h1>Vidéos les plus nulles du web</h1>
+    </div>
+    {% for detail_null in videos_null %}
+    <a href="/" class="col-3 miniature_video">
+        <img src="{{ detail_null.video_thumbnail }}"/>
+        <p>{{ detail_null.video_titre }}</p>
+        <p>{{ detail_null.video_createur }}</p>
+        <hr>
+        <p class="nb_views">{{ detail_null.video_views }}<img src="/src/svg/view.svg"/></p>
+    </a>
+    {% endfor %}
+    <a href="/liste-videos" class="col-2 custom_button">Voir + de videos</a>
+</section>
+
 
 <section class="row  justify-content-center">
 
-{% if user %}
-	<p class="col-8">Hello, {{user.username}}. View your <a href="/account/profile">profile</a>.</p>
-{% else %}
-	<p class="col-8">Welcome! Please <a href="/account/login">log in</a>.</p>
-{% endif %}
+
 
 </section>
 

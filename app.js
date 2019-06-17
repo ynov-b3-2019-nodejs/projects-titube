@@ -1,3 +1,6 @@
+'use strict';
+require('dotenv').config();
+const db = require('./database/connection');
 const express = require('express');
 const authentification = require('./authentification');
 const accountRouter = require('./router/accountRouter');
@@ -18,10 +21,15 @@ nunjucks.configure('views', {
 });
 app.set('view engine', 'html');
 
-// Static CSS
+// Static
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
-authentification(app);
+app.use('/customcss', express.static(__dirname + '/stylesheet'));
+app.use('/src', express.static(__dirname + '/src'));
+
+db.setConnection();
+
+authentification(app, db);
 
 app.use('/', router);
 app.use('/account', accountRouter);
