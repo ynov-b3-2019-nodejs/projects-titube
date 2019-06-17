@@ -37,7 +37,7 @@ module.exports = {
             if (res.rowCount === 1) {
                 return { err: null, video: res.rows[0] };
             }
-            console.log("error to much video")
+            console.log("error to much video");
             return { err: "error to much video", video: null };
         } catch (e) {
             console.log(e);
