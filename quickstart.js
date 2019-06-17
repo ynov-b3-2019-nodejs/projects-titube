@@ -144,9 +144,11 @@ exports.authenticate = function ()
       if (channels.length == 0) {
         console.log('No channel found.');
       } else {
-        console.log('Les catégories sont :',
-                    channels[0].id,
-                    channels[0].snippet.title);
+        console.log('Les catégories sont :')
+        channels.forEach(element => {
+          console.log("id :" + element.id);
+          console.log("title :" + element.snippet.title);
+        });
       }
     });
   }
