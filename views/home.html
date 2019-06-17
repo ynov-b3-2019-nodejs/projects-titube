@@ -109,13 +109,4 @@
     <a href="/liste-videos/Trends" class="col-2 custom_button">Voir + de videos</a>
 </section>
 
-<section class="row  justify-content-center">
-
-    {% if user %}
-    <p class="col-8">Hello, {{user.username}}. View your <a href="/account/profile" class="orange_link">profile</a>.</p>
-    {% else %}
-    <p class="col-8">Welcome! Please <a href="/account/login" class="orange_link">log in</a>.</p>
-    {% endif %}
-</section>
-
 {% endblock %}
