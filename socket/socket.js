@@ -1,23 +1,22 @@
-module.exports = function (app, db) {
-    var http = require('http').Server(app);
-    var io = require('socket.io')(http);
+module.exports = function (http, db) {
+    const io = require('socket.io')(http);
 
-    app.get('/', function (req, res) {
-        res.sendFile(__dirname + '/view/_like.html');
-    });
+    io.on('connection', function (socket) {
+        console.log('a user connected');
 
-    socket.on('like_request', async function (userId, videoId) {
-        if ((await db.likeVideo(userId, videoId)).err === null) {
-            socket.emit('like', 1);
-        }
-    });
-    socket.on('unlike_request', function (userId, number) {
-        if ((await db.likeVideo(userId, unlike)).err === null) {
-            socket.emit('unlike', 1);
-        }
-    });
-
-    http.listen(4000, function () {
-        console.log('socket listening on *:4000');
+        socket.on('like_request', async function (userId, videoId) {
+            console.log("like_request", userId, videoId);
+            if ((await db.likeVideo(userId, videoId)).err === null) {
+                socket.emit('like', (await db.countLikeVideo(videoId)).number);
+                console.log("like", userId, videoId);
+            }
+        });
+        socket.on('unlike_request', async function (userId, videoId) {
+            console.log("unlike_request", userId, videoId);
+            if ((await db.likeVideo(userId, videoId)).err === null) {
+                socket.emit('unlike', (await db.countunLikeVideo(videoId)).number);
+                console.log("unlike", userId, videoId);
+            }
+        });
     });
 }

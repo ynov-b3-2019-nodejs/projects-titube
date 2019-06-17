@@ -7,10 +7,13 @@ const accountRouter = require('./router/accountRouter');
 const router = require('./router/router');
 const socket = require('./socket/socket');
 const nunjucks = require('nunjucks');
+const { createServer } = require('http');
 require('dotenv').config();
 
 // Create a new Express application.
 const app = express();
+
+const http = createServer(app)
 
 // Configure view engine to render EJS templates.
 app.set('views', __dirname + '/views');
@@ -33,11 +36,7 @@ authentification(app, db);
 app.use('/', router);
 app.use('/account', accountRouter);
 
-socket(app, db);
+socket(http, db);
 
-console.log('Test serveur lancee sur le serveur port 3000');
-app.listen(process.env.PORT || 3000);
-//db.selectUserById(4);
-//db.selectUserByEmail("test@test.com");
-//db.selectTrendByLabel('Sport');
-//db.insertVideo('titre', 'une description', 10, 37, 99, 'https://i.ytimg.com/vi/ghJktw2i93E/sddefault.jpg', 1, 1);
+http.listen(process.env.PORT || 3000);
+console.log('Serveur lancee sur le serveur port ', process.env.PORT || 3000);

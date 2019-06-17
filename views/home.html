@@ -11,7 +11,7 @@
 <section class="row">
     <div class="video col-8">
         <iframe src="https://www.youtube.com/embed/{{ video_shortcode }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <p class="nb_views">12K<img src="/src/svg/view.svg"/></p>
+        <p class="nb_views">12K<img src="/src/svg/view.svg" /></p>
         <div>
             <h2 class="title_border">Description</h2>
             <p class="description">{{ video_desciption }}</p>
@@ -26,33 +26,65 @@
             <div class="color_progresse_bar" style="width:55%"></div>
         </div>
         <button id="like">123 LIKES</button>
-        <button id="dislike">123 dislikes</button>
+        <button id="unlike">123 dislikes</button>
+
+        <div>
+            <script src="/socket.io/socket.io.js"></script>
+            <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+            <script>
+                $(function () {
+                    var socket = io();
+
+                    $('#like').click(function () {
+                        socket.emit('like_request', 1, {{ video_id }});
+                });
+
+                    $('#unlike').click(function () {
+                        socket.emit('unlike_request', 1, {{ video_id }});
+                });
+
+                socket.on('like', function (number) {
+                    $('#like').text(number);
+                    });
+                socket.on('unlike', function (number) {
+                        $('#unlike').text(number);
+                    });
+                });
+            </script>
+        </div>
+
         <h2>Commentaire</h2>
         <div class="block_commentaire">
-            <img src="/src/img/pp.jpg"/>
+            <img src="/src/img/pp.jpg" />
             <div class="content_block">
                 <p>Patrice</p>
-                <p>     Lorem ipsum dolor sit amet,
+                <p>
+                    Lorem ipsum dolor sit amet,
                     consectetur adipiscing elit, sed do
-                    eiusmod tempor incididunt ut labore </p>
+                    eiusmod tempor incididunt ut labore
+                </p>
             </div>
         </div>
         <div class="block_commentaire">
-            <img src="/src/img/pp.jpg"/>
+            <img src="/src/img/pp.jpg" />
             <div class="content_block">
                 <p>Patrice</p>
-                <p>     Lorem ipsum dolor sit amet,
+                <p>
+                    Lorem ipsum dolor sit amet,
                     consectetur adipiscing elit, sed do
-                    eiusmod tempor incididunt ut labore </p>
+                    eiusmod tempor incididunt ut labore
+                </p>
             </div>
         </div>
         <div class="block_commentaire">
-            <img src="/src/img/pp.jpg"/>
+            <img src="/src/img/pp.jpg" />
             <div class="content_block">
                 <p>Patrice</p>
-                <p>     Lorem ipsum dolor sit amet,
+                <p>
+                    Lorem ipsum dolor sit amet,
                     consectetur adipiscing elit, sed do
-                    eiusmod tempor incididunt ut labore </p>
+                    eiusmod tempor incididunt ut labore
+                </p>
             </div>
         </div>
     </div>
@@ -63,11 +95,11 @@
     </div>
     {% for detail_trends in trends %}
     <a href="/video/{{detail_trends.video_id}}" class="col-3 miniature_video">
-        <img src="{{ detail_trends.video_thumbnail }}"/>
+        <img src="{{ detail_trends.video_thumbnail }}" />
         <p>{{ detail_trends.video_titre }}</p>
         <p>{{ detail_trends.video_createur }}</p>
         <hr>
-        <p class="nb_views">{{ detail_trends.video_views }}<img src="/src/svg/view.svg"/></p>
+        <p class="nb_views">{{ detail_trends.video_views }}<img src="/src/svg/view.svg" /></p>
     </a>
     {% endfor %}
     <a href="/liste-videos" class="col-2 custom_button">Voir + de videos</a>
@@ -78,26 +110,23 @@
     </div>
     {% for detail_null in videos_null %}
     <a href="/" class="col-3 miniature_video">
-        <img src="{{ detail_null.video_thumbnail }}"/>
+        <img src="{{ detail_null.video_thumbnail }}" />
         <p>{{ detail_null.video_titre }}</p>
         <p>{{ detail_null.video_createur }}</p>
         <hr>
-        <p class="nb_views">{{ detail_null.video_views }}<img src="/src/svg/view.svg"/></p>
+        <p class="nb_views">{{ detail_null.video_views }}<img src="/src/svg/view.svg" /></p>
     </a>
     {% endfor %}
     <a href="/liste-videos" class="col-2 custom_button">Voir + de videos</a>
 </section>
 
-
 <section class="row  justify-content-center">
 
-{% if user %}
-	<p class="col-8">Hello, {{user.username}}. View your <a href="/account/profile" class="orange_link">profile</a>.</p>
-{% else %}
-	<p class="col-8">Welcome! Please <a href="/account/login" class="orange_link">log in</a>.</p>
-{% endif %}
-
+    {% if user %}
+    <p class="col-8">Hello, {{user.username}}. View your <a href="/account/profile" class="orange_link">profile</a>.</p>
+    {% else %}
+    <p class="col-8">Welcome! Please <a href="/account/login" class="orange_link">log in</a>.</p>
+    {% endif %}
 </section>
-
 
 {% endblock %}
