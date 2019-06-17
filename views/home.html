@@ -23,7 +23,7 @@
         <p class="d-inline-block color_blue">{{ video_createur }}</p>
         <h2>Note moyenne</h2>
         <div class="progresse_bar">
-            <div class="color_progresse_bar" style="width:55%"></div>
+            <div class="color_progresse_bar" id="progresse_bar" style="width:55%"></div>
         </div>
         <button id="like">123 LIKES</button>
         <button id="unlike">123 dislikes</button>
@@ -44,10 +44,26 @@
                 });
                         {% endif %}
                 socket.on('like', function (number) {
-                    $('#like').text(number);
+                    $('#like').text(number.number);
+                    const like  = $('#like').text();
+                    const unlike = $('#unlike').text();
+                    if (unlike  === 0 && like  === 0) {
+                        $('#progresse_bar').width('100%');
+                    }
+                    else {
+                        $('#progresse_bar').width(((like / (like + unlike)) * 100).toString() + '%');
+                    }
                     });
                 socket.on('unlike', function (number) {
-                        $('#unlike').text(number);
+                    $('#unlike').text(number.number);
+                    const like  = $('#like').text();
+                    const unlike = $('#unlike').text();
+                    if (unlike  === 0 && like  === 0) {
+                        $('#progresse_bar').width('100%');
+                    }
+                    else {
+                        $('#progresse_bar').width(((like / (like + unlike)) * 100).toString() + '%');
+                    }
                 });
 
                 socket.emit('likeAndUnlike_request', {{ video_id }});

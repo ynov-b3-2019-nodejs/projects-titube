@@ -5,8 +5,8 @@ module.exports = function (http, db) {
         console.log('a user connected');
 
         socket.on('likeAndUnlike_request', async function (videoId) {
-            socket.emit('like', (await db.countLikeVideo(videoId)).number);
-            socket.emit('unlike', (await db.countUnLikeVideo(videoId)).number);
+            socket.emit('like', { number: (await db.countLikeVideo(videoId)).number });
+            socket.emit('unlike', {  number: (await db.countUnLikeVideo(videoId)).number });
         });
 
         socket.on('like_request', async function (userId, videoId) {
@@ -16,8 +16,8 @@ module.exports = function (http, db) {
             if (!hasLikeOrUnlike.err) {
                 if (hasLikeOrUnlike.like == true) {
                     await db.deleteLikeOrUnlike(userId, videoId);
-                    socket.emit('like', (await db.countLikeVideo(videoId)).number);
-                    socket.emit('unlike', (await db.countUnLikeVideo(videoId)).number);
+                    io.emit('like', { for: 'everyone', number: (await db.countLikeVideo(videoId)).number });
+                    io.emit('unlike', { for: 'everyone', number: (await db.countUnLikeVideo(videoId)).number });
                     return;
                 }
 
@@ -26,15 +26,15 @@ module.exports = function (http, db) {
                 }
                 const likeVideo = await db.likeVideo(userId, videoId);
                 if (!likeVideo.err) {
-                    socket.emit('like', (await db.countLikeVideo(videoId)).number);
-                    socket.emit('unlike', (await db.countUnLikeVideo(videoId)).number);
+                    io.emit('like', { for: 'everyone', number: (await db.countLikeVideo(videoId)).number });
+                    io.emit('unlike', { for: 'everyone', number: (await db.countUnLikeVideo(videoId)).number });
                     console.log("like", userId, videoId);
                     return;
                 }
             }
             await db.deleteLikeOrUnlike(userId, videoId);
-            socket.emit('unlike', (await db.countUnLikeVideo(videoId)).number);
-            socket.emit('like', (await db.countLikeVideo(videoId)).number);
+            io.emit('like', { for: 'everyone', number: (await db.countLikeVideo(videoId)).number });
+            io.emit('unlike', { for: 'everyone', number: (await db.countUnLikeVideo(videoId)).number });
         });
         socket.on('unlike_request', async function (userId, videoId) {
             console.log("unlike_request", userId, videoId);
@@ -42,8 +42,8 @@ module.exports = function (http, db) {
             if (!hasLikeOrUnlike.err) {
                 if (hasLikeOrUnlike.unlike == true) {
                     await db.deleteLikeOrUnlike(userId, videoId);
-                    socket.emit('like', (await db.countLikeVideo(videoId)).number);
-                    socket.emit('unlike', (await db.countUnLikeVideo(videoId)).number);
+                    io.emit('like', { for: 'everyone', number: (await db.countLikeVideo(videoId)).number });
+                    io.emit('unlike', { for: 'everyone', number: (await db.countUnLikeVideo(videoId)).number });
                     return;
                 }
 
@@ -52,15 +52,15 @@ module.exports = function (http, db) {
                 }
                 const likeVideo = await db.unLikeVideo(userId, videoId);
                 if (!likeVideo.err) {
-                    socket.emit('unlike', (await db.countUnLikeVideo(videoId)).number);
-                    socket.emit('like', (await db.countLikeVideo(videoId)).number);
+                    io.emit('like', { for: 'everyone', number: (await db.countLikeVideo(videoId)).number });
+                    io.emit('unlike', { for: 'everyone', number: (await db.countUnLikeVideo(videoId)).number });
                     console.log("unlike", userId, videoId);
                     return;
                 }
             }
             await db.deleteLikeOrUnlike(userId, videoId);
-            socket.emit('like', (await db.countLikeVideo(videoId)).number);
-            socket.emit('unlike', (await db.countUnLikeVideo(videoId)).number);
+            io.emit('like', { for: 'everyone', number: (await db.countLikeVideo(videoId)).number });
+            io.emit('unlike', { for: 'everyone', number: (await db.countUnLikeVideo(videoId)).number });
         });
     });
 }
