@@ -1,5 +1,152 @@
-{% if user %}
-	<p>Hello, {{user.username}}. View your <a href="/profile">profile</a>.</p>
-{% else %}
-	<p>Welcome! Please <a href="/login">log in</a>.</p>
-{% endif %}
+{% extends "layout.html" %}
+{% block content %}
+<section class="row">
+    <div class="col-12 infos">
+        <h1> {{ video_titre }}</h1>
+        <ul>
+            <li><a href="/liste-videos/{{ video_category }}">{{ video_category }}</a></li>
+        </ul>
+    </div>
+</section>
+<section class="row">
+    <div class="video col-8">
+        <iframe src="https://www.youtube.com/embed/{{ video_shortcode }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <p class="nb_views">12K<img src="/src/svg/view.svg" /></p>
+        <div>
+            <h2 class="title_border">Description</h2>
+            <p class="description">{{ video_desciption }}</p>
+        </div>
+    </div>
+    <div class="infos_video col-4">
+        <h2>Createur</h2>
+        <img src="{{ createur_pp }}" class="pp">
+        <p class="d-inline-block color_blue">{{ video_createur }}</p>
+        <h2>Note moyenne</h2>
+        <div class="progresse_bar">
+            <div class="color_progresse_bar" id="progresse_bar" style="width:55%"></div>
+        </div>
+        <button id="like">123 LIKES</button>
+        <button id="unlike">123 dislikes</button>
+        <div>
+            <script src="/socket.io/socket.io.js"></script>
+            <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+            <script>
+                $(document).ready( function () {
+                    $(function () {
+                        var socket = io();
+                        {% if user %}
+                    $('#like').click(function () {
+                        socket.emit('like_request',  {{ user.id }}, {{ video_id }});
+                });
+
+                    $('#unlike').click(function () {
+                        socket.emit('unlike_request', {{ user.id }}, {{ video_id }});
+                });
+                        {% endif %}
+                socket.on('like', function (number) {
+                    $('#like').text(number.number);
+                    const old_like  = $('#like').text();
+                    const like = parseFloat(old_like);
+                    const old_unlike = $('#unlike').text();
+                    const unlike = parseFloat(old_unlike);
+                    if (like === 0) {
+                        $('#progresse_bar').width('0%');
+                    }
+                    if (unlike === 0) {
+                        $('#progresse_bar').width('100%');
+                    }
+                    if (unlike  === 0 && like  === 0 ) {
+                        $('#progresse_bar').width('50%');
+                    }else{
+                        $('#progresse_bar').width(((like / ((like + unlike))) * 100).toString() + '%');
+                    }
+                    });
+
+                socket.on('unlike', function (number) {
+                    $('#unlike').text(number.number);
+                    const old_like  = $('#like').text();
+                    const like = parseFloat(old_like);
+
+                    const old_unlike = $('#unlike').text().parseFloat();
+                    const unlike = parseFloat(old_unlike);
+
+                    if (unlike  === 0 && like  === 0 ) {
+                        $('#progresse_bar').width('50%');
+                    }else{
+                        if (like === 0) {
+                            $('#progresse_bar').width('0%');
+                            console.log("Je suis passer par ici");
+                        }else{
+                            if (unlike === 0) {
+                                $('#progresse_bar').width('100%');
+                            }
+                            else{
+                                $('#progresse_bar').width(((like / ((like + unlike))) * 100).toString() + '%');
+                            }
+                        }
+
+                    }
+
+
+                });
+
+                socket.emit('likeAndUnlike_request', {{ video_id }});
+
+                });
+                });
+            </script>
+        </div>
+
+        <h2>Commentaire</h2>
+        <div class="block_commentaire">
+            <img src="/src/img/pp.jpg" />
+            <div class="content_block">
+                <p>Patrice</p>
+                <p>
+                    Lorem ipsum dolor sit amet,
+                    consectetur adipiscing elit, sed do
+                    eiusmod tempor incididunt ut labore
+                </p>
+            </div>
+        </div>
+        <div class="block_commentaire">
+            <img src="/src/img/pp.jpg" />
+            <div class="content_block">
+                <p>Patrice</p>
+                <p>
+                    Lorem ipsum dolor sit amet,
+                    consectetur adipiscing elit, sed do
+                    eiusmod tempor incididunt ut labore
+                </p>
+            </div>
+        </div>
+        <div class="block_commentaire">
+            <img src="/src/img/pp.jpg" />
+            <div class="content_block">
+                <p>Patrice</p>
+                <p>
+                    Lorem ipsum dolor sit amet,
+                    consectetur adipiscing elit, sed do
+                    eiusmod tempor incididunt ut labore
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="row justify-content-end">
+    <div class="col-12 infos">
+        <h1>Tendance</h1>
+    </div>
+    {% for detail_trends in trends %}
+    <a href="/video/{{detail_trends.video_id}}" class="col-3 miniature_video">
+        <img src="{{ detail_trends.video_thumbnail }}" />
+        <p>{{ detail_trends.video_titre }}</p>
+        <p>{{ detail_trends.video_createur }}</p>
+        <hr>
+        <p class="nb_views">{{ detail_trends.video_views }}<img src="/src/svg/view.svg" /></p>
+    </a>
+    {% endfor %}
+    <a href="/liste-videos/Trends" class="col-2 custom_button">Voir + de videos</a>
+</section>
+
+{% endblock %}

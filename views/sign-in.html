@@ -1,22 +1,24 @@
 {% extends "layout.html" %}
 {% block content %}
 <section class="row  justify-content-center">
-    <form action="/account/login" method="post" class=" col-6 form-group">
+    <form action="/account/signin" method="post" class=" col-6 form-group">
         <div>
-            <label>Username:</label>
+            <label>Email:</label>
             <input class="form-control" type="text" name="username" /><br />
         </div>
         <div>
             <label>Password:</label>
             <input class="form-control" type="password" name="password" />
         </div>
+        <div>
+            <label>Re-type password:</label>
+            <input class="form-control" type="password" name="retype-password" />
+        </div>
         <br />
         <div>
             <input class="btn btn-primary" type="submit" value="Envoyer" />
         </div>
     </form>
-    <a href="/account/auth/google" class="col-12 form-group text-center">Sign In with Google</a>
-    <a href="/account/signin" class="col-12 form-group text-center">Sign In </a>
 </section>
 
 {% endblock %}
