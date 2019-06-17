@@ -152,6 +152,64 @@ module.exports = {
             return { err: e, user: null };
         }
     },
+    async InsertCategorie(label) {
+        try {
+            const res = await client.query('INSERT INTO public."Categorie" (label) VALUES ( \'' + label + '\')');
+            console.log(res);
+
+            if (res.rowCount === 0) {
+                return { err: res, user: null };
+            }
+
+            if (res.rowCount === 1) {
+                return { err: null, user: res.rows[0] };
+            }
+            console.log("error to much user")
+            return { err: "error to much user", user: null };
+        } catch (e) {
+            console.log(e);
+            return { err: e, user: null };
+        }
+    },
+    async InsertVideos(categorie, creator_name, creator_pp, shortcode, title, description, views, thumbnail) {
+        try {
+            const res = await client.query('INSERT INTO public."Video" (cat, creator_name, creator_pp, shortcode, title, description, views, thumbnail ) VALUES ( \'' + categorie + '\', \'' + creator_name + '\', \''+ creator_pp +'\', \''+ shortcode + '\', \''+ title +'\',\''+ description+ '\', \''+ views +'\',\''+ thumbnail +'\' )');
+            console.log(res);
+
+            if (res.rowCount === 0) {
+                return { err: res, user: null };
+            }
+
+            if (res.rowCount === 1) {
+                return { err: null, user: res.rows[0] };
+            }
+            console.log("error to much user")
+            return { err: "error to much user", user: null };
+        } catch (e) {
+            console.log(e);
+            return { err: e, user: null };
+        }
+    },
+    async CategorieById(id) {
+        try {
+            const res = await client.query('SELECT label FROM public."Categorie" WHERE id=( \'' + id + '\')');
+            console.log(res);
+
+            if (res.rowCount === 0) {
+                return { err: res, user: null };
+            }
+
+            if (res.rowCount === 1) {
+                return { err: null, user: res.rows[0] };
+            }
+            console.log("error to much user")
+            return { err: "error to much user", user: null };
+        } catch (e) {
+            console.log(e);
+            return { err: e, user: null };
+        }
+    },
+
     selectUserByEmail: function (mail) {
         client.query("SELECT * FROM public.\"User\" WHERE email LIKE " + mail, (err, res) => {
             console.log("UserByEmail:", err, res);

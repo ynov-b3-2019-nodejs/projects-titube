@@ -2,6 +2,7 @@ var fs = require('fs');
 var readline = require('readline');
 var {google} = require('googleapis');
 var OAuth2 = google.auth.OAuth2;
+const db = require('./database/connection');
 
 exports.authenticate = function ()
 {
@@ -128,7 +129,7 @@ exports.authenticate = function ()
     });
   }*/
 
-  function getCategories(auth) {
+  async function getCategories(auth) {
     var service = google.youtube('v3');
     service.videoCategories.list({
       auth: auth,
@@ -148,7 +149,9 @@ exports.authenticate = function ()
         channels.forEach(element => {
           console.log("id :" + element.id);
           console.log("title :" + element.snippet.title);
+
         });
+
       }
     });
   }
@@ -182,6 +185,19 @@ exports.authenticate = function ()
           console.log("category id :" + element.snippet.categoryId);
           console.log("channel title :" + element.snippet.channelTitle);
 
+
+          // LA LES AWAIT MES COUILLES !!!!!
+
+            async function asyncCall() {
+                console.log('calling');
+                var result = await db.CategorieById(element.snippet.categoryId);;
+                console.log("coucoucocuiuqw1duixasbkwqbduqiq" + result.label);
+                // expected output: 'resolved'
+            }
+
+            asyncCall();
+
+          //db.InsertVideos( 'categorie', 'Alban le bg', 'bg.png', 'ouai ouai ouai', "titre", "description", 10000, 'pg.png' );
 
           //console.log("id :" + element.);
         });
