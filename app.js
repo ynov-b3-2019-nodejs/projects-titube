@@ -28,9 +28,8 @@ app.use('/customcss', express.static( __dirname + '/stylesheet'));
 app.use('/src', express.static( __dirname + '/src'));
 
 
-
+db.setConnection();
 authentification(app);
-
 app.use('/', router);
 app.use('/account', accountRouter);
 
@@ -39,7 +38,7 @@ socket(app);
 console.log('Test serveur lancee sur le serveur port 3000');
 app.listen(process.env.PORT || 3000);
 
-db.setConnection();
+
 //db.selectUserById(4);
 //db.selectUserByEmail("test@test.com");
 //db.selectTrendByLabel('Sport');

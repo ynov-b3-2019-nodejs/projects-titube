@@ -14,6 +14,13 @@ module.exports = {
             console.log("Connection suceessfuly established.");
         });
     },
+
+    testVideo: function () {
+        client.query('SELECT * FROM public."Video"', (err, res) => {
+            console.log(err, res);
+            return(res);
+        });
+    },
     closeConnection: function () {
         client.end()
             .then(() => {
