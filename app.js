@@ -40,4 +40,6 @@ console.log('Test serveur lancee sur le serveur port 3000');
 app.listen(process.env.PORT || 3000);
 
 db.setConnection();
-db.selectUserById(1);
+// db.selectUserById(4);
+// db.selectUserByEmail("jacky@mail.com");
+db.insertVideo('titre', 'une description', 10, 37, 99, 'https://i.ytimg.com/vi/ghJktw2i93E/sddefault.jpg', 1, 1);
