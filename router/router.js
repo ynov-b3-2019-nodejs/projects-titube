@@ -16,6 +16,11 @@ router.get('/video',
         res.render('video', { user: req.user, idVideo: req.idVideo });
     });
 
+router.get('/liste-videos',
+    function (req, res) {
+        res.render('list_videos', { user: req.user, idVideo: req.idVideo });
+    });
+
 router.get('/chat',
     function (req, res) {
         res.render('_chat');
