@@ -27,39 +27,59 @@
             <li class="has_submenu">
                 Category
                 <ul>
-                    <li><a href="">Category</a></li>
-                    <li><a href="">Category</a></li>
+
+                    {% for detail_cat in cat %}
+                    <li><a href="../liste-videos/{{detail_cat.cat_label}}">{{detail_cat.cat_label}}</a></li>
+                    {% endfor %}
+
+
                 </ul>
             </li>
+            {% if user %}
+            <li>
+                <a href="/account/profile">Profile</a>
+            </li>
+            {% else %}
             <li>
                 <a href="/account/login">Connexion</a>
             </li>
+            {% endif %}
+
+
         </ul>
     </div>
     </div>
 </header>
 <div class="container">
+    <!--
 <div class="row justify-content-center">
-    <div class="col-4">
+    <div class="col-8">
         <div class="card">
             <div class="card-header">
                 Variable Nunjuck hiden
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">Title : {{ Title }}</li>
+                <li class="list-group-item"><b>Title :</b> {{ Title }}</li>
+                <li class="list-group-item"><b>pass_on_url :</b> {{ pass_on_url }}</li>
+                <li class="list-group-item"><b>video_titre :</b> {{ video_titre }}</li>
+                <li class="list-group-item"><b>video_category :</b> {{ video_category }}</li>
+                <li class="list-group-item"><b>video_createur :</b> {{ video_createur }}</li>
+                <li class="list-group-item"><b>video_thumbnail :</b> {{ video_thumbnail }}</li>
+                <li class="list-group-item"><b>createur_pp :</b> {{ createur_pp }}</li>
+                <li class="list-group-item"><b>video_shortcode :</b> {{ video_shortcode }}</li>
+                <li class="list-group-item"><b>video_desciption :</b> {{ video_desciption }}</li>
+
             </ul>
         </div>
     </div>
-</div>
+</div>-->
 </div>
 <br/>
 <br/>
 <br/>
 <main class="container">
-
 {% block content %}
-
-{% endblock %}
+    {% endblock %}
 </main>
 <p class="text-center">
     Mon Beau footer

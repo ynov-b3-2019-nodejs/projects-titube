@@ -163,14 +163,6 @@ header div.header:after{
     margin-right: 10px;
     font-size: 15px;
 }
-.infos>ul>li:after{
-    content: ' x ';
-    position: absolute;
-    top: 0;
-    right: -5px;
-    font-size: 10px
-}
-
 
 /* Section video */
 .video{
@@ -179,7 +171,7 @@ header div.header:after{
 }
 iframe{
     width: 100%;
-    height: 40%;
+    height: 50%;
 }
 .nb_views{
     color: #3369FF;
@@ -268,7 +260,7 @@ a.miniature_video, a.miniature_video:hover{
     height: auto;
 }
 .miniature_video>p:first-of-type{
-    font-size: 20px;
+    font-size: 17px;
     font-weight: bold;
     margin: 0;
     padding: 0;
@@ -297,4 +289,15 @@ a.miniature_video, a.miniature_video:hover{
     color: white;
     transition-duration: 0.2s;
     background-color: #3369FF;
+}
+.btn-primary{
+    color: white;
+    background-color: orange;
+    border: 1px solid transparent;
+
+}
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus, .btn-primary:visited, .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle{
+    background-color: white;
+    border: 1px solid orange;
+    color: orange;
 }
