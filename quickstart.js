@@ -2,9 +2,13 @@ var fs = require('fs');
 var readline = require('readline');
 var {google} = require('googleapis');
 var OAuth2 = google.auth.OAuth2;
+const db = require('./database/connection');
 
 exports.authenticate = function ()
+
 {
+
+
   // If modifying these scopes, delete your previously saved credentials
   // at ~/.credentials/youtube-nodejs-quickstart.json
   var SCOPES = ['https://www.googleapis.com/auth/youtube.readonly'];
@@ -19,7 +23,7 @@ exports.authenticate = function ()
       return;
     }
     // Authorize a client with the loaded credentials, then call the YouTube API.
-    authorize(JSON.parse(content), getChannel);
+    authorize(JSON.parse(content), getTopVideos);
   });
 
   /**
@@ -104,7 +108,7 @@ exports.authenticate = function ()
    *
    * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
    */
-  function getChannel(auth) {
+ /* function getChannel(auth) {
     var service = google.youtube('v3');
     service.channels.list({
       auth: auth,
@@ -124,6 +128,76 @@ exports.authenticate = function ()
                     channels[0].id,
                     channels[0].snippet.title,
                     channels[0].statistics.viewCount);
+      }
+    });
+  }*/
+
+  async function getCategories(auth) {
+    var service = google.youtube('v3');
+    service.videoCategories.list({
+      auth: auth,
+      part: 'snippet',
+      regionCode: 'FR',
+      forUsername: 'GoogleDevelopers'
+    }, function(err, response) {
+      if (err) {
+        console.log('The API returned an error: ' + err);
+        return;
+      }
+      var channels = response.data.items;
+      if (channels.length == 0) {
+        console.log('No channel found.');
+      } else {
+        console.log('Les catégories sont :')
+        channels.forEach(element => {
+          console.log("id :" + element.id);
+          console.log("title :" + element.snippet.title);
+          db.InsertCategorie( element.id ,  element.snippet.title );
+
+        });
+
+      }
+    });
+  }
+
+  async function getTopVideos(auth) {
+    var service = google.youtube('v3');
+    service.videos.list({
+      auth: auth,
+      part: 'statistics,snippet',
+      regionCode: 'FR',
+      chart: 'mostPopular',
+        maxResults: 10,
+        videoCategoryId: '18'
+    }, function(err, response) {
+      if (err) {
+        console.log('The API returned an error: ' + err);
+        return;
+      }
+      var channels = response.data.items;
+      if (channels.length == 0) {
+        console.log('No channel found.');
+      } else {
+        console.log('Les vidéos sont :')
+          //console.log(channels);
+        channels.forEach(element => {
+          //console.log("id :" + element.id);
+          //console.log("like :" + element.statistics.likeCount);
+          //console.log("viewCount :" + element.statistics.viewCount);
+          //console.log("title :" + element.snippet.title);
+            console.log(element.snippet);
+          console.log("Description :" + element.snippet.description);
+          //console.log("thunb url :" + element.snippet.thumbnails.high.url);
+          //console.log("category id :" + element.snippet.categoryId);
+          //console.log("channel title :" + element.snippet.channelTitle);
+
+
+          db.InsertVideos( "Short Movies", element.snippet.description, element.snippet.channelTitle, element.id,   element.snippet.title,  element.statistics.viewCount, element.snippet.thumbnails.high.url );
+
+
+
+          //console.log("id :" + element.);
+        });
       }
     });
   }

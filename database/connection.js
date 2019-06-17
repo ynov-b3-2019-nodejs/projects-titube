@@ -152,6 +152,71 @@ module.exports = {
             return { err: e, user: null };
         }
     },
+    async InsertCategorie(id, label) {
+        try {
+            const res = await client.query('INSERT INTO public."Categorie" (id, label) VALUES ( \'' + id + '\', \'' + label + '\')');
+            console.log(res);
+
+            if (res.rowCount === 0) {
+                return { err: res, user: null };
+            }
+
+            if (res.rowCount === 1) {
+                return { err: null, user: res.rows[0] };
+            }
+            console.log("error to much user")
+            return { err: "error to much user", user: null };
+        } catch (e) {
+            console.log(e);
+            return { err: e, user: null };
+        }
+    },
+    async InsertVideos(categorie, description, creator_name, shortcode, title, views, thumbnail) {
+        try {
+            function replace_caractere(str) {
+                //const result = str.replace('\\', ' ').replace('\'', ' ').replace('\`', ' ').replace('\"', ' ').replace('\'', ' ').replace('\\\'', ' ');
+                return str;
+            }
+            const new_titre = replace_caractere(title);
+            const new_description = replace_caractere(description);
+
+            const res = await client.query('INSERT INTO public."Video" (cat,description, creator_name, shortcode, title, views, thumbnail ) VALUES ( \'' + categorie + '\', $$' + new_description + '$$, \'' + creator_name + '\', \''+ shortcode + '\', $$'+ new_titre+'$$, \''+ views +'\',\''+ thumbnail +'\' )');
+            console.log(res);
+
+            if (res.rowCount === 0) {
+                return { err: res, user: null };
+            }
+
+            if (res.rowCount === 1) {
+                return { err: null, user: res.rows[0] };
+            }
+            console.log("error to much user")
+            return { err: "error to much user", user: null };
+        } catch (e) {
+            console.log(e);
+            return { err: e, user: null };
+        }
+    },
+    async CategorieById(id) {
+        try {
+            const res = await client.query('SELECT label FROM public."Categorie" WHERE id=( \'' + id + '\')');
+            console.log(res);
+
+            if (res.rowCount === 0) {
+                return { err: res, user: null };
+            }
+
+            if (res.rowCount === 1) {
+                return { err: null, user: res.rows[0] };
+            }
+            console.log("error to much user")
+            return { err: "error to much user", user: null };
+        } catch (e) {
+            console.log(e);
+            return { err: e, user: null };
+        }
+    },
+
     selectUserByEmail: function (mail) {
         client.query("SELECT * FROM public.\"User\" WHERE email LIKE " + mail, (err, res) => {
             console.log("UserByEmail:", err, res);
