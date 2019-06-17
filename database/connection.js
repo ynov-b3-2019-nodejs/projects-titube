@@ -44,6 +44,20 @@ module.exports = {
             return { err: e, video: null };
         }
     },
+    async selectCategoryAll() {
+        try {
+            const res = await client.query('SELECT * FROM public."Categorie"');
+            console.log(res);
+
+            if (res.rowCount === 0) {
+                return { err: res, categories: null };
+            }
+            return { err: null, categories: res.rows };
+        } catch (e) {
+            console.log(e);
+            return { err: e, categories: null };
+        }
+    },
     async selectVideoAll() {
         try {
             const res = await client.query('SELECT * FROM public."Video"');
@@ -58,9 +72,37 @@ module.exports = {
             return { err: e, videos: null };
         }
     },
-    async selectVideosTrends() {
+    async selectAllVideosTrends() {
         try {
             const res = await client.query('SELECT * FROM public."Video" WHERE on_trend=true');
+            console.log(res);
+
+            if (res.rowCount === 0) {
+                return { err: res, videos: null };
+            }
+            return { err: null, videos: res.rows };
+        } catch (e) {
+            console.log(e);
+            return { err: e, videos: null };
+        }
+    },
+    async selectVideosByCategories(category) {
+        try {
+            const res = await client.query('SELECT * FROM public."Video" WHERE cat=\'' + category + '\'');
+            console.log(res);
+
+            if (res.rowCount === 0) {
+                return { err: res, videos: null };
+            }
+            return { err: null, videos: res.rows };
+        } catch (e) {
+            console.log(e);
+            return { err: e, videos: null };
+        }
+    },
+    async selectVideosTrends() {
+        try {
+            const res = await client.query('SELECT * FROM public."Video" WHERE on_trend=true LIMIT 4');
             console.log(res);
 
             if (res.rowCount === 0) {

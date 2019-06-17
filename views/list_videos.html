@@ -3,95 +3,16 @@
 
 <section class="row">
     <div class="col-12 infos">
-        <h1>Vidéos les plus nulles du web</h1>
+        <h1>{{Title}}</h1>
     </div>
-    <a href="/" class="col-3 miniature_video">
-        <img src="/src/img/tomb-raider.jpg"/>
-        <p>Titre de la video</p>
-        <p>Nom du createur</p>
+    {% for detail in videos %}
+    <a href="/video/{{detail.video_id}}" class="col-3 miniature_video">
+        <img src="{{ detail.video_thumbnail }}"/>
+        <p>{{ detail.video_titre }}</p>
+        <p>{{ detail.video_createur }}</p>
         <hr>
-        <p class="nb_views">12K<img src="/src/svg/view.svg"/></p>
+        <p class="nb_views">{{ detail.video_views }}<img src="/src/svg/view.svg"/></p>
     </a>
-    <a href="/" class="col-3 miniature_video">
-        <img src="/src/img/tomb-raider.jpg"/>
-        <p>Titre de la video</p>
-        <p>Nom du createur</p>
-        <hr>
-        <p class="nb_views">12K<img src="/src/svg/view.svg"/></p>
-    </a>
-    <a href="/" class="col-3 miniature_video">
-        <img src="/src/img/tomb-raider.jpg"/>
-        <p>Titre de la video</p>
-        <p>Nom du createur</p>
-        <hr>
-        <p class="nb_views">12K<img src="/src/svg/view.svg"/></p>
-    </a>
-    <a href="/" class="col-3 miniature_video">
-        <img src="/src/img/tomb-raider.jpg"/>
-        <p>Titre de la video</p>
-        <p>Nom du createur</p>
-        <hr>
-        <p class="nb_views">12K<img src="/src/svg/view.svg"/></p>
-    </a>    <a href="/" class="col-3 miniature_video">
-        <img src="/src/img/tomb-raider.jpg"/>
-        <p>Titre de la video</p>
-        <p>Nom du createur</p>
-        <hr>
-        <p class="nb_views">12K<img src="/src/svg/view.svg"/></p>
-    </a>    <a href="/" class="col-3 miniature_video">
-        <img src="/src/img/tomb-raider.jpg"/>
-        <p>Titre de la video</p>
-        <p>Nom du createur</p>
-        <hr>
-        <p class="nb_views">12K<img src="/src/svg/view.svg"/></p>
-    </a>    <a href="/" class="col-3 miniature_video">
-        <img src="/src/img/tomb-raider.jpg"/>
-        <p>Titre de la video</p>
-        <p>Nom du createur</p>
-        <hr>
-        <p class="nb_views">12K<img src="/src/svg/view.svg"/></p>
-    </a>    <a href="/" class="col-3 miniature_video">
-        <img src="/src/img/tomb-raider.jpg"/>
-        <p>Titre de la video</p>
-        <p>Nom du createur</p>
-        <hr>
-        <p class="nb_views">12K<img src="/src/svg/view.svg"/></p>
-    </a>    <a href="/" class="col-3 miniature_video">
-        <img src="/src/img/tomb-raider.jpg"/>
-        <p>Titre de la video</p>
-        <p>Nom du createur</p>
-        <hr>
-        <p class="nb_views">12K<img src="/src/svg/view.svg"/></p>
-    </a>    <a href="/" class="col-3 miniature_video">
-        <img src="/src/img/tomb-raider.jpg"/>
-        <p>Titre de la video</p>
-        <p>Nom du createur</p>
-        <hr>
-        <p class="nb_views">12K<img src="/src/svg/view.svg"/></p>
-    </a>    <a href="/" class="col-3 miniature_video">
-        <img src="/src/img/tomb-raider.jpg"/>
-        <p>Titre de la video</p>
-        <p>Nom du createur</p>
-        <hr>
-        <p class="nb_views">12K<img src="/src/svg/view.svg"/></p>
-    </a>    <a href="/" class="col-3 miniature_video">
-        <img src="/src/img/tomb-raider.jpg"/>
-        <p>Titre de la video</p>
-        <p>Nom du createur</p>
-        <hr>
-        <p class="nb_views">12K<img src="/src/svg/view.svg"/></p>
-    </a>    <a href="/" class="col-3 miniature_video">
-        <img src="/src/img/tomb-raider.jpg"/>
-        <p>Titre de la video</p>
-        <p>Nom du createur</p>
-        <hr>
-        <p class="nb_views">12K<img src="/src/svg/view.svg"/></p>
-    </a>    <a href="/" class="col-3 miniature_video">
-        <img src="/src/img/tomb-raider.jpg"/>
-        <p>Titre de la video</p>
-        <p>Nom du createur</p>
-        <hr>
-        <p class="nb_views">12K<img src="/src/svg/view.svg"/></p>
-    </a>
+    {% endfor %}
 </section>
 {% endblock %}
