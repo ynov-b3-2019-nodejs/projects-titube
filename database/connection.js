@@ -14,13 +14,6 @@ module.exports = {
             console.log("Connection suceessfuly established.");
         });
     },
-
-    testVideo: function () {
-        client.query('SELECT * FROM public."Video"', (err, res) => {
-            console.log(err, res);
-            return(res);
-        });
-    },
     closeConnection: function () {
         client.end()
             .then(() => {
@@ -31,6 +24,39 @@ module.exports = {
         client.query("SELECT * FROM trend", (err, res) => {
             console.log(err, res);
         });
+    },
+    async selectVideoById(id) {
+        try {
+            const res = await client.query('SELECT * FROM public."Video" WHERE id=\'' + id + '\'');
+            console.log(res);
+
+            if (res.rowCount === 0) {
+                return { err: res, video: null };
+            }
+
+            if (res.rowCount === 1) {
+                return { err: null, video: res.rows[0] };
+            }
+            console.log("error to much video")
+            return { err: "error to much video", video: null };
+        } catch (e) {
+            console.log(e);
+            return { err: e, video: null };
+        }
+    },
+    async selectVideoAll() {
+        try {
+            const res = await client.query('SELECT * FROM public."Video"');
+            console.log(res);
+
+            if (res.rowCount === 0) {
+                return { err: res, videos: null };
+            }
+            return { err: null, videos: res.rows };
+        } catch (e) {
+            console.log(e);
+            return { err: e, videos: null };
+        }
     },
     async selectUserByUsername(username) {
         try {
