@@ -19,7 +19,7 @@ exports.authenticate = function ()
       return;
     }
     // Authorize a client with the loaded credentials, then call the YouTube API.
-    authorize(JSON.parse(content), getCategories);
+    authorize(JSON.parse(content), getTopVideos);
   });
 
   /**
@@ -148,6 +148,42 @@ exports.authenticate = function ()
         channels.forEach(element => {
           console.log("id :" + element.id);
           console.log("title :" + element.snippet.title);
+        });
+      }
+    });
+  }
+
+  async function getTopVideos(auth) {
+    var service = google.youtube('v3');
+    service.videos.list({
+      auth: auth,
+      part: 'statistics,snippet',
+      regionCode: 'FR',
+      chart: 'mostPopular',
+      videoCategoryId: '2',
+      forUsername: 'GoogleDevelopers'
+    }, function(err, response) {
+      if (err) {
+        console.log('The API returned an error: ' + err);
+        return;
+      }
+      var channels = response.data.items;
+      if (channels.length == 0) {
+        console.log('No channel found.');
+      } else {
+        console.log('Les vidéos sont :')
+        channels.forEach(element => {
+          console.log("id :" + element.id);
+          console.log("like :" + element.statistics.likeCount);
+          console.log("viewCount :" + element.statistics.viewCount);
+          console.log("title :" + element.snippet.title);
+          console.log("description :" + element.snippet.description);
+          console.log("thunb url :" + element.snippet.thumbnails.high.url);
+          console.log("category id :" + element.snippet.categoryId);
+          console.log("channel title :" + element.snippet.channelTitle);
+
+
+          //console.log("id :" + element.);
         });
       }
     });
