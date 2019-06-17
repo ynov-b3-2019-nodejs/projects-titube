@@ -2,8 +2,6 @@ module.exports = function (app) {
     const passport = require('passport');
     const Strategy = require('passport-local').Strategy;
     const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-    const db = require('./db');
-    console.log(db);
 
     // Configure the local strategy for use by Passport.
     //
