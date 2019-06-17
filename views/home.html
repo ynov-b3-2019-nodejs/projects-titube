@@ -27,28 +27,32 @@
         </div>
         <button id="like">123 LIKES</button>
         <button id="unlike">123 dislikes</button>
-
         <div>
             <script src="/socket.io/socket.io.js"></script>
             <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
             <script>
-                $(function () {
-                    var socket = io();
-
+                $(document).ready( function () {
+                    $(function () {
+                        var socket = io();
+                        {% if user %}
                     $('#like').click(function () {
-                        socket.emit('like_request', 1, {{ video_id }});
+                        socket.emit('like_request',  {{ user.id }}, {{ video_id }});
                 });
 
                     $('#unlike').click(function () {
-                        socket.emit('unlike_request', 1, {{ video_id }});
+                        socket.emit('unlike_request', {{ user.id }}, {{ video_id }});
                 });
-
+                        {% endif %}
                 socket.on('like', function (number) {
                     $('#like').text(number);
                     });
                 socket.on('unlike', function (number) {
                         $('#unlike').text(number);
-                    });
+                });
+
+                socket.emit('likeAndUnlike_request', {{ video_id }});
+
+                });
                 });
             </script>
         </div>

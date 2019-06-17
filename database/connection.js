@@ -147,7 +147,7 @@ module.exports = {
     },
     async deleteLikeOrUnlike(userId, videoId) {
         try {
-            await client.query('DELETE * FROM public."UserLike" WHERE userid=\'' + userId + '\' AND videoid=\'' + videoId + '\'');
+            await client.query('DELETE FROM public."UserLike" WHERE userid=\'' + userId + '\' AND videoid=\'' + videoId + '\'');
             return { err: null };
         } catch (e) {
             console.log(e);
@@ -210,19 +210,19 @@ module.exports = {
     },
     async countLikeVideo(videoId) {
         try {
-            const res = await client.query('SELECT COUNT(*) FROM public."UserLike" WHERE has_like_unlike=\'' + true + '\' AND videoid=\'' + videoId + '\'');
+            const res = await client.query('SELECT COUNT(*) FROM public."UserLike" WHERE has_like_unlike=true AND videoid=\'' + videoId + '\'');
 
-            return { err: null, number: res.rowCount };
+            return { err: null, number: res.rows[0].count };
         } catch (e) {
             console.log(e);
             return { err: e };
         }
     },
-    async countunLikeVideo(videoId) {
+    async countUnLikeVideo(videoId) {
         try {
-            const res = await client.query('SELECT COUNT(*) FROM public."UserLike" WHERE has_like_unlike=\'' + false + '\' AND videoid=\'' + videoId + '\'');
+            const res = await client.query('SELECT COUNT(*) FROM public."UserLike" WHERE has_like_unlike=false AND videoid=\'' + videoId + '\'');
 
-            return { err: null, number: res.rowCount };
+            return { err: null, number: res.rows[0].count };
         } catch (e) {
             console.log(e);
             return { err: e };
