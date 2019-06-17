@@ -58,6 +58,20 @@ module.exports = {
             return { err: e, videos: null };
         }
     },
+    async selectVideosTrends() {
+        try {
+            const res = await client.query('SELECT * FROM public."Video" WHERE on_trend=true');
+            console.log(res);
+
+            if (res.rowCount === 0) {
+                return { err: res, videos: null };
+            }
+            return { err: null, videos: res.rows };
+        } catch (e) {
+            console.log(e);
+            return { err: e, videos: null };
+        }
+    },
     async selectUserByUsername(username) {
         try {
             const res = await client.query('SELECT * FROM public."User" WHERE username=\'' + username + '\'');

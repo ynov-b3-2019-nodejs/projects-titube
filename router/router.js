@@ -6,7 +6,7 @@ const db = require('../database/connection');
 
 router.get('/',
     async function (req, res) {
-        const allvideos_query = await db.selectVideoAll();
+        const allvideos_query = await db.selectVideosTrends();
         const my_customarray_trends=[];
         const allvideos = allvideos_query.videos;
         allvideos.forEach(function(element) {
@@ -39,7 +39,7 @@ router.get('/video/:id',
         async function (req, res) {
             var id = req.params.id;
 
-            const allvideos_query = await db.selectVideoAll();
+            const allvideos_query = await db.selectVideosTrends();
             const my_customarray_trends=[];
             const allvideos = allvideos_query.videos;
             allvideos.forEach(function(element) {
