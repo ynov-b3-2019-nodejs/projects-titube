@@ -19,7 +19,7 @@ exports.authenticate = function ()
       return;
     }
     // Authorize a client with the loaded credentials, then call the YouTube API.
-    authorize(JSON.parse(content), getChannel);
+    authorize(JSON.parse(content), getCategories);
   });
 
   /**
@@ -104,7 +104,7 @@ exports.authenticate = function ()
    *
    * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
    */
-  function getChannel(auth) {
+ /* function getChannel(auth) {
     var service = google.youtube('v3');
     service.channels.list({
       auth: auth,
@@ -124,6 +124,29 @@ exports.authenticate = function ()
                     channels[0].id,
                     channels[0].snippet.title,
                     channels[0].statistics.viewCount);
+      }
+    });
+  }*/
+
+  function getCategories(auth) {
+    var service = google.youtube('v3');
+    service.videoCategories.list({
+      auth: auth,
+      part: 'snippet',
+      regionCode: 'FR',
+      forUsername: 'GoogleDevelopers'
+    }, function(err, response) {
+      if (err) {
+        console.log('The API returned an error: ' + err);
+        return;
+      }
+      var channels = response.data.items;
+      if (channels.length == 0) {
+        console.log('No channel found.');
+      } else {
+        console.log('Les catégories sont :',
+                    channels[0].id,
+                    channels[0].snippet.title);
       }
     });
   }
