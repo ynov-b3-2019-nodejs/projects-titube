@@ -163,14 +163,6 @@ header div.header:after{
     margin-right: 10px;
     font-size: 15px;
 }
-.infos>ul>li:after{
-    content: ' x ';
-    position: absolute;
-    top: 0;
-    right: -5px;
-    font-size: 10px
-}
-
 
 /* Section video */
 .video{
@@ -179,7 +171,7 @@ header div.header:after{
 }
 iframe{
     width: 100%;
-    height: 40%;
+    height: 50%;
 }
 .nb_views{
     color: #3369FF;

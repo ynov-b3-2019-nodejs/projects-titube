@@ -37,7 +37,6 @@ socket(app, db);
 
 console.log('Test serveur lancee sur le serveur port 3000');
 app.listen(process.env.PORT || 3000);
-
 //db.selectUserById(4);
 //db.selectUserByEmail("test@test.com");
 //db.selectTrendByLabel('Sport');
