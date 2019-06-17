@@ -187,4 +187,87 @@ module.exports = {
             console.log(err, res);
         });
     },
+    async deleteLikeOrUnlike(userId, videoId) {
+        try {
+            await client.query('DELETE FROM public."UserLike" WHERE userid=\'' + userId + '\' AND videoid=\'' + videoId + '\'');
+            return { err: null };
+        } catch (e) {
+            console.log(e);
+            return { err: e };
+        }
+    },
+    async hasLikeOrUnlike(userId, videoId) {
+        try {
+            const res = await client.query('SELECT * FROM public."UserLike" WHERE userid=\'' + userId + '\' AND videoid=\'' + videoId + '\'');
+            console.log(res);
+
+            if (res.rowCount === 0) {
+                return { err: null, like: false, unlike: false };
+            }
+
+            if (res.rowCount === 1) {
+                if (res.rows[0].has_like_unlike === true) {
+                    return { err: null, like: true, unlike: false };
+                }
+                return { err: null, like: false, unlike: true };
+            }
+            console.log("error to much row")
+            return { err: "error to much row", like: null, unlike: null };
+        } catch (e) {
+            console.log(e);
+            return { err: e, like: null, unlike: null };
+        }
+    },
+    async likeVideo(userId, videoId) {
+        try {
+            const res = await client.query('SELECT * FROM public."UserLike" WHERE userid=\'' + userId + '\' AND videoid=\'' + videoId + '\'');
+
+            if (res.rowCount === 0) {
+                await client.query('INSERT INTO public."UserLike" (userid, videoid, has_like_unlike) VALUES (\'' + userId + '\',\'' + videoId + '\',\'' + true + '\')')
+                return { err: null };
+            }
+            await this.deleteLikeOrUnlike(userId, videoId);
+            await client.query('INSERT INTO public."UserLike" (userid, videoid, has_like_unlike) VALUES (\'' + userId + '\',\'' + videoId + '\',\'' + true + '\')')
+            return { err: null };
+        } catch (e) {
+            console.log(e);
+            return { err: e };
+        }
+    },
+    async unLikeVideo(userId, videoId) {
+        try {
+            const res = await client.query('SELECT * FROM public."UserLike" WHERE userid=\'' + userId + '\' AND videoid=\'' + videoId + '\'');
+
+            if (res.rowCount === 0) {
+                await client.query('INSERT INTO public."UserLike" (userid, videoid, has_like_unlike) VALUES (\'' + userId + '\',\'' + videoId + '\',\'' + false + '\')')
+                return { err: null };
+            }
+            await this.deleteLikeOrUnlike(userId, videoId);
+            await client.query('INSERT INTO public."UserLike" (userid, videoid, has_like_unlike) VALUES (\'' + userId + '\',\'' + videoId + '\',\'' + false + '\')')
+            return { err: null };
+        } catch (e) {
+            console.log(e);
+            return { err: e };
+        }
+    },
+    async countLikeVideo(videoId) {
+        try {
+            const res = await client.query('SELECT COUNT(*) FROM public."UserLike" WHERE has_like_unlike=true AND videoid=\'' + videoId + '\'');
+
+            return { err: null, number: res.rows[0].count };
+        } catch (e) {
+            console.log(e);
+            return { err: e };
+        }
+    },
+    async countUnLikeVideo(videoId) {
+        try {
+            const res = await client.query('SELECT COUNT(*) FROM public."UserLike" WHERE has_like_unlike=false AND videoid=\'' + videoId + '\'');
+
+            return { err: null, number: res.rows[0].count };
+        } catch (e) {
+            console.log(e);
+            return { err: e };
+        }
+    },
 }

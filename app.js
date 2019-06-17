@@ -7,11 +7,13 @@ const accountRouter = require('./router/accountRouter');
 const router = require('./router/router');
 const socket = require('./socket/socket');
 const nunjucks = require('nunjucks');
+const { createServer } = require('http');
 require('dotenv').config();
-const youtubeApi = require('./quickstart'); 
 
 // Create a new Express application.
 const app = express();
+
+const http = createServer(app)
 
 // Configure view engine to render EJS templates.
 app.set('views', __dirname + '/views');
@@ -34,9 +36,7 @@ authentification(app, db);
 app.use('/', router);
 app.use('/account', accountRouter);
 
-socket(app);
+socket(http, db);
 
-console.log('Test serveur lancee sur le serveur port 3000');
-app.listen(process.env.PORT || 3000);
-
-youtubeApi.authenticate();
+http.listen(process.env.PORT || 3000);
+console.log('Serveur lancee sur le serveur port ', process.env.PORT || 3000);
