@@ -149,6 +149,7 @@ exports.authenticate = function ()
         channels.forEach(element => {
           console.log("id :" + element.id);
           console.log("title :" + element.snippet.title);
+          db.InsertCategorie( element.id ,  element.snippet.title );
 
         });
 
@@ -163,8 +164,7 @@ exports.authenticate = function ()
       part: 'statistics,snippet',
       regionCode: 'FR',
       chart: 'mostPopular',
-      videoCategoryId: '2',
-      forUsername: 'GoogleDevelopers'
+        videoCategoryId: '1'
     }, function(err, response) {
       if (err) {
         console.log('The API returned an error: ' + err);
@@ -175,29 +175,20 @@ exports.authenticate = function ()
         console.log('No channel found.');
       } else {
         console.log('Les vidéos sont :')
+          console.log(channels);
         channels.forEach(element => {
           console.log("id :" + element.id);
           console.log("like :" + element.statistics.likeCount);
           console.log("viewCount :" + element.statistics.viewCount);
           console.log("title :" + element.snippet.title);
-          console.log("description :" + element.snippet.description);
+          const titre = (element.snippet.title).normalize();
           console.log("thunb url :" + element.snippet.thumbnails.high.url);
           console.log("category id :" + element.snippet.categoryId);
           console.log("channel title :" + element.snippet.channelTitle);
 
+          //db.InsertVideos( "Film & Animation", element.snippet.channelTitle, element.id,  titre,  element.statistics.viewCount, element.snippet.thumbnails.high.url );
 
-          // LA LES AWAIT MES COUILLES !!!!!
 
-            async function asyncCall() {
-                console.log('calling');
-                var result = await db.CategorieById(element.snippet.categoryId);;
-                console.log("coucoucocuiuqw1duixasbkwqbduqiq" + result.label);
-                // expected output: 'resolved'
-            }
-
-            asyncCall();
-
-          //db.InsertVideos( 'categorie', 'Alban le bg', 'bg.png', 'ouai ouai ouai', "titre", "description", 10000, 'pg.png' );
 
           //console.log("id :" + element.);
         });

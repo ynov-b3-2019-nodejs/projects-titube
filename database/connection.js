@@ -152,9 +152,9 @@ module.exports = {
             return { err: e, user: null };
         }
     },
-    async InsertCategorie(label) {
+    async InsertCategorie(id, label) {
         try {
-            const res = await client.query('INSERT INTO public."Categorie" (label) VALUES ( \'' + label + '\')');
+            const res = await client.query('INSERT INTO public."Categorie" (id, label) VALUES ( \'' + id + '\', \'' + label + '\')');
             console.log(res);
 
             if (res.rowCount === 0) {
@@ -171,9 +171,9 @@ module.exports = {
             return { err: e, user: null };
         }
     },
-    async InsertVideos(categorie, creator_name, creator_pp, shortcode, title, description, views, thumbnail) {
+    async InsertVideos(categorie, creator_name, shortcode, title, views, thumbnail) {
         try {
-            const res = await client.query('INSERT INTO public."Video" (cat, creator_name, creator_pp, shortcode, title, description, views, thumbnail ) VALUES ( \'' + categorie + '\', \'' + creator_name + '\', \''+ creator_pp +'\', \''+ shortcode + '\', \''+ title +'\',\''+ description+ '\', \''+ views +'\',\''+ thumbnail +'\' )');
+            const res = await client.query('INSERT INTO public."Video" (cat, creator_name, shortcode, title, views, thumbnail ) VALUES ( \'' + categorie + '\', \'' + creator_name + '\', \''+ shortcode + '\', \''+ title +'\', \''+ views +'\',\''+ thumbnail +'\' )');
             console.log(res);
 
             if (res.rowCount === 0) {
