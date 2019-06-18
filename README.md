@@ -1,24 +1,35 @@
 # Project TiTube
 
-School project aiming at the creation of a classified ad site such as for example: https://www.leboncoin.fr/
+School project aiming at the creation of a classified ad site such as for example: https://www.youtube.com/
 
 ## Production site
 
-Deploy with heroku   
+Deploy with heroku
 
-## Getting Started
+https://prod-titube.herokuapp.com
 
-### Some Help
+## Getting Started 
+
 
 ### UseFull link
+Passeport.js for authentification
+http://www.passportjs.org/
+
+Google documentation for YouTube API and auhtentification
+https://developers.google.com/docs/api/
+
+Socket.io for like and unlike functions
+https://socket.io/
 
 ### Prerequisites
+Postgre server for database
 
-### Install & lunch
+### Install & launch
+To install packages
+```yarn install```
 
-## Running the tests
-
-## API Documentation
+To launch the app
+```yarn start```
 
 ## Authors
 
