@@ -10,7 +10,7 @@ https://prod-titube.herokuapp.com
 
 ## Getting Started 
 
-Create and edit the .env file like this:
+1. Create and edit the .env file like this:
 ```
 GOOGLE_AUTH_SECRET = 
 GOOGLE_AUTH_ID = 
@@ -21,6 +21,12 @@ DB_Name=
 DB_Port=
 DB_Host= 
 ```
+
+2. To install packages
+```yarn install```
+
+3. To launch the app
+```yarn start```
 
 ### UseFull link
 Passeport.js for authentification
