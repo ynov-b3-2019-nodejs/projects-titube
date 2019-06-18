@@ -1,6 +1,6 @@
 # Project TiTube
 
-School project aiming at the creation of a vidéos ad site such as for example: https://www.youtube.com/
+School project aiming at the creation of a videos site such as for example: https://www.youtube.com/
 
 ## Production site
 
