@@ -35,7 +35,7 @@ https://socket.io/
 ### Prerequisites
 
 - Postgre server for database
-
+- APIs Keys
 
 ### Install & launch
 To install packages
