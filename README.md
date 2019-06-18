@@ -10,6 +10,17 @@ https://prod-titube.herokuapp.com
 
 ## Getting Started 
 
+Create and edit the .env file like this:
+```
+GOOGLE_AUTH_SECRET = 
+GOOGLE_AUTH_ID = 
+YOUTUBE_API_KEY = 
+DB_User=
+DB_Password=
+DB_Name=
+DB_Port=
+DB_Host= 
+```
 
 ### UseFull link
 Passeport.js for authentification
@@ -22,7 +33,9 @@ Socket.io for like and unlike functions
 https://socket.io/
 
 ### Prerequisites
-Postgre server for database
+
+- Postgre server for database
+
 
 ### Install & launch
 To install packages
