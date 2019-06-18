@@ -50,6 +50,18 @@ To install packages
 To launch the app
 ```yarn start```
 
+### Add Data into BDD
+You have to create new function into
+```Quickstart.js``` like  ```getCategories()``` or ```getTopVideos```
+
+Then you have to replace at line ``` 26 - authorize(JSON.parse(content), newFunction);```
+
+Then this script will be executed when you launch the project.
+
+You can before try you're youtube api request there [Youtube API Documentation](https://developers.google.com/youtube/v3/docs/)
+
+
+
 ## Authors
 
 * **Alexis Lauradoux** - [AlexisLauradoux](https://github.com/AlexisLauradoux)
