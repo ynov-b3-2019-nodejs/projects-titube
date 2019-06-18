@@ -22,10 +22,10 @@ DB_Port=
 DB_Host= 
 ```
 
-2. To install packages
+2. Install packages
 ```yarn install```
 
-3. To launch the app
+3. Launch the app
 ```yarn start```
 
 ### UseFull link
